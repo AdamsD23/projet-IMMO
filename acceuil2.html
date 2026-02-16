@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="assets/js/api.js"></script>
+<style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+<title>Accueil Immo | Énergie Urbaine Abidjan</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+<span class="material-symbols-outlined text-3xl">domain</span>
+</div>
+<div class="flex flex-col -space-y-1">
+<span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+<span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Urban Energy</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-10">
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+</nav>
+<div class="flex items-center gap-4">
+<a href="seconnecter.html" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-forest hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">account_circle</span>
+                Se connecter
+            </a>
+<a href="deposeannonce.html" class="bg-primary text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                DÉPOSER UNE ANNONCE
+            </a>
+</div>
+</div>
+</header>
+<main>
+<section class="max-w-[1400px] mx-auto px-8 py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8 order-2 lg:order-1">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-forest/5 border border-forest/10 rounded-full">
+<span class="flex size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-black uppercase tracking-widest text-forest">L'Immobilier Nouvelle Génération</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-black text-forest leading-[1.1] tracking-tight">
+                Vivez l'Énergie de <span class="text-primary italic">Abidjan.</span>
+</h1>
+<p class="text-lg text-forest/70 max-w-lg leading-relaxed font-medium">
+                De la skyline du Plateau aux villas de luxe de Cocody, nous redéfinissons la gestion immobilière en Côte d'Ivoire avec une approche vibrante et contemporaine.
+            </p>
+<div class="bg-white p-4 rounded-3xl shadow-2xl border border-forest/5 max-w-xl">
+<div class="flex flex-col gap-4">
+<div class="grid grid-cols-2 gap-2 bg-background p-1.5 rounded-2xl">
+<button class="py-3 rounded-xl text-sm font-black bg-white shadow-sm text-forest uppercase">Location</button>
+<button class="py-3 rounded-xl text-sm font-bold text-forest/50 hover:text-forest uppercase">Achat</button>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 bg-background rounded-2xl border border-transparent focus-within:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-sm font-bold placeholder:text-forest/30" placeholder="Quartier : Riviera, Zone 4, Plateau..." type="text"/>
+</div>
+<button class="bg-forest text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-forest/90 transition-all">
+<span class="material-symbols-outlined">search</span>
+                        Trouver mon bien
+                    </button>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2 relative">
+<div class="grid grid-cols-12 gap-4 h-[500px] md:h-[600px]">
+<div class="col-span-8 rounded-3xl overflow-hidden shadow-2xl relative group">
+<img alt="Skyline Abidjan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4H_6wYecz1Fh7cwQgXIe-IPMxlstYOmFh2bE51-WfDGfjhAUjSpzGiU05YZJ8NZAVFsAo2VZLFej179upL4SWH-Gq42R7g4u_ZOQrXt-kBfsqPi7t42od9CvsRN8HjkzarLSEgcF3MPQHJLdo-I9E3vwJ9Nb7jS-hWM0-bCuMid11ESy-HFZaTOFuPJ74VszDfnqsSkm-cSOxTQHr3vHA4jbQCPYWVQRzbjWxBvKMznJMnFd-GJZWDrke3f6GjU1hkfpasYqnZfAm"/>
+<div class="absolute inset-0 bg-gradient-to-t from-forest/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs font-black tracking-widest uppercase mb-1">Cœur Urbain</p>
+<h3 class="text-xl font-bold">Le Plateau District</h3>
+</div>
+</div>
+<div class="col-span-4 flex flex-col gap-4">
+<div class="flex-1 rounded-3xl overflow-hidden shadow-xl border-4 border-white relative group">
+<img alt="Modern Apartment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNR8CmM2Z3muvts2G8pwgUNMgbj1wUBv-1d4-5fW2uASDDBNw0k5zymlUdl9v-GwbDE4uJHFjXizdTmoYHQarcB7pSZXl6qryEvCtEm37ZnVNzhvOpkiW3acAD9df8TG9qJ5HhCSCMBG9q4-KF3xM9z8NYFn2BzXpR5fMeOPLpl6A-jwGEXGNZ8h74aAE13Egd8YnQnQ3IjsGj-1Z_OocQX7JOXIku8Ia9uHMxONb1NxOxQYsiRZ7e3zJt2P7UDUgeIOpQ6rEmRwS"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1 rounded-3xl overflow-hidden shadow-xl bg-primary flex items-center justify-center p-6 text-center">
+<div class="text-white">
+<span class="text-4xl font-black block mb-2">+500</span>
+<span class="text-[10px] font-bold uppercase tracking-widest leading-tight opacity-90">Biens en gestion exclusive</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-2xl flex items-center gap-4 border border-forest/5 animate-bounce-slow">
+<div class="bg-accent/20 p-3 rounded-2xl text-accent">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<div>
+<p class="text-xs font-black uppercase text-forest/40">Certifié par</p>
+<p class="text-sm font-extrabold text-forest">FNAIM Côte d'Ivoire</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-forest py-24 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] rounded-full -mr-48 -mt-48"></div>
+<div class="max-w-[1400px] mx-auto px-8 relative z-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+<div class="max-w-xl">
+<h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Expertise Immobilière <span class="text-primary italic">Sans Compromis.</span></h2>
+<p class="text-white/60 font-medium">Une gestion rigoureuse alliée à une compréhension profonde des dynamiques urbaines de la Côte d'Ivoire.</p>
+</div>
+<button class="group flex items-center gap-3 text-primary font-black uppercase tracking-widest text-sm">
+                    Découvrir nos offres <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+<div class="size-16 bg-primary rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 -rotate-6 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-white text-3xl">real_estate_agent</span>
+</div>
+<h3 class="text-2xl font-black text-white mb-4">Gestion Locative</h3>
+<p class="text-white/60 leading-relaxed text-sm">Optimisation de vos revenus fonciers et sélection rigoureuse des locataires avec garantie de loyers impayés.</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+<div class="size-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-lg rotate-3 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-forest text-3xl">apartment</span>
+</div>
+<h3 class="text-2xl font-black text-white mb-4">Syndic de Copro</h3>
+<p class="text-white/60 leading-relaxed text-sm">Une gestion de proximité pour maintenir la valeur de vos immeubles et assurer une harmonie entre résidents.</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+<div class="size-16 bg-accent rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-accent/20 -rotate-3 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-forest text-3xl">balance</span>
+</div>
+<h3 class="text-2xl font-black text-white mb-4">Conseil Juridique</h3>
+<p class="text-white/60 leading-relaxed text-sm">Accompagnement dans toutes vos démarches administratives, de l'ACD à la rédaction de baux complexes.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 max-w-[1400px] mx-auto px-8">
+<div class="flex items-center justify-between mb-16">
+<div>
+<span class="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-2 block">Sélection Exclusive</span>
+<h2 class="text-4xl font-black text-forest">Biens en Vedette</h2>
+</div>
+<div class="flex gap-4">
+<button class="size-14 rounded-full border-2 border-forest/10 flex items-center justify-center hover:bg-forest hover:text-white transition-all">
+<span class="material-symbols-outlined">west</span>
+</button>
+<button class="size-14 rounded-full bg-forest text-white flex items-center justify-center hover:bg-primary transition-all">
+<span class="material-symbols-outlined">east</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+<div class="neo-card bg-white overflow-hidden group">
+<div class="relative h-72 overflow-hidden">
+<img alt="Villa Cocody" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIlJ8BorpA3g4KF578jk32d3fLztiblQzuq68I4mp5lzO3wiAqR1SZCCntEHA5kEjxmN3M3tpXzaORnlgsTGIO5X35cna1NjqvqfE2I27dLDtu7fEeL0vedPypWj0zmqz-Wza1CpM-sWYOR9M8ijerJcn4vseWURQiEBbbNQ6De92WfRUALOsPFIVo6bvv6TJLhXBHbVpvPeNQO03bvEfaDre8uLnj2gxUOX3IQyXMgllzLIoL-qypgXCYq53ggtmXwOYRvgKEiaBT"/>
+<div class="absolute top-6 left-6 flex flex-col gap-2">
+<span class="bg-forest text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Villa Prestige</span>
+<span class="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Nouveau</span>
+</div>
+<button class="absolute top-6 right-6 size-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-white hover:text-red-500 transition-all">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-black text-forest mb-1 group-hover:text-primary transition-colors">Résidence l'Emeraude</h3>
+<p class="text-sm font-bold text-forest/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> Cocody Ambassade
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-6 py-6 border-y border-forest/5 mb-6">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Chambres</span>
+<span class="font-extrabold text-forest">05</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Bains</span>
+<span class="font-extrabold text-forest">04</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Surface</span>
+<span class="font-extrabold text-forest">450m²</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-primary uppercase tracking-widest">Par mois</span>
+<span class="text-2xl font-black text-forest italic">1.500.000 <span class="text-sm not-italic">XOF</span></span>
+</div>
+<button class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">arrow_outward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="neo-card bg-white overflow-hidden group">
+<div class="relative h-72 overflow-hidden">
+<img alt="Appartement Plateau" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNR8CmM2Z3muvts2G8pwgUNMgbj1wUBv-1d4-5fW2uASDDBNw0k5zymlUdl9v-GwbDE4uJHFjXizdTmoYHQarcB7pSZXl6qryEvCtEm37ZnVNzhvOpkiW3acAD9df8TG9qJ5HhCSCMBG9q4-KF3xM9z8NYFn2BzXpR5fMeOPLpl6A-jwGEXGNZ8h74aAE13Egd8YnQnQ3IjsGj-1Z_OocQX7JOXIku8Ia9uHMxONb1NxOxQYsiRZ7e3zJt2P7UDUgeIOpQ6rEmRwS"/>
+<div class="absolute top-6 left-6">
+<span class="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest italic shadow-lg shadow-primary/20">Exclusivité</span>
+</div>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-black text-forest mb-1 group-hover:text-primary transition-colors">Le Panoramic Plateau</h3>
+<p class="text-sm font-bold text-forest/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> Plateau Skyline
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-6 py-6 border-y border-forest/5 mb-6">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Chambres</span>
+<span class="font-extrabold text-forest">03</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Etage</span>
+<span class="font-extrabold text-forest">18ème</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Surface</span>
+<span class="font-extrabold text-forest">180m²</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-primary uppercase tracking-widest">Par mois</span>
+<span class="text-2xl font-black text-forest italic">850.000 <span class="text-sm not-italic">XOF</span></span>
+</div>
+<button class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">arrow_outward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="neo-card bg-white overflow-hidden group">
+<div class="relative h-72 overflow-hidden">
+<img alt="Villa Assinie" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBADpfDHDGFD397qaNUeM9KmerNKEC06D4BT1unzZd9Zr-sHKV2LW0mT7NkcKet-Vpai8zoW2-gH92_GTkHNAFWX6HMEKXjW6luf4AK5BJhnTM_DjNZ2kxcUI8V0RNSb7g33SDbugOkvgIJ-w6dflTNAZFbtnid05stP2422qiYASfrQHLArRdwJp2q-f0btEGbpPM10D2k1JUXqzhQw0B0_p-EVxubY2r2WkFJt06vF4CKkJxs9LtonVSNFz7gyZjWDfDhDQwkZC94"/>
+<div class="absolute top-6 left-6">
+<span class="bg-accent text-forest text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Vente Directe</span>
+</div>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-black text-forest mb-1 group-hover:text-primary transition-colors">Villa Bord de Mer</h3>
+<p class="text-sm font-bold text-forest/40 flex items-center gap-1">
+<span class="material-symbols-outlined text-base">location_on</span> Assinie-Mafia
+                            </p>
+</div>
+</div>
+<div class="flex items-center gap-6 py-6 border-y border-forest/5 mb-6">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Chambres</span>
+<span class="font-extrabold text-forest">06</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Piscine</span>
+<span class="font-extrabold text-forest">Oui</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Terrain</span>
+<span class="font-extrabold text-forest">1200m²</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] font-black text-primary uppercase tracking-widest">Prix de vente</span>
+<span class="text-2xl font-black text-forest italic">450M <span class="text-sm not-italic">XOF</span></span>
+</div>
+<button class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">arrow_outward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-[1400px] mx-auto px-8 py-20">
+<div class="bg-primary rounded-[3rem] p-12 lg:p-20 relative overflow-hidden flex flex-col items-center text-center">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+<div class="relative z-10 space-y-8 max-w-3xl">
+<h2 class="text-4xl md:text-6xl font-black text-white leading-tight">Envie d'une estimation <span class="text-forest italic underline decoration-forest/30 decoration-8 underline-offset-8">instantanée ?</span></h2>
+<p class="text-white font-bold text-lg opacity-90">Nos agents sont en ligne pour vous répondre directement sur WhatsApp. Simple, rapide et professionnel.</p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center pt-4">
+<button class="bg-forest text-white px-10 py-5 rounded-3xl font-black flex items-center justify-center gap-4 shadow-2xl hover:scale-105 transition-all text-lg">
+<svg class="size-8" fill="currentColor" viewBox="0 0 24 24">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+</svg>
+                        Démarrer le chat
+                    </button>
+<button class="bg-white/20 backdrop-blur-md text-white border-2 border-white/30 px-10 py-5 rounded-3xl font-black hover:bg-white hover:text-primary transition-all text-lg">
+                        Nous appeler
+                    </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white pt-24 pb-12">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
+<div class="md:col-span-5 space-y-6">
+<div class="flex items-center gap-3">
+<div class="bg-forest text-primary p-1.5 rounded-lg rotate-3 shadow-md">
+<span class="material-symbols-outlined text-2xl">domain</span>
+</div>
+<span class="text-xl font-black tracking-tighter uppercase italic text-forest">Accueil<span class="text-primary">Immo</span></span>
+</div>
+<p class="text-forest/60 font-medium max-w-sm leading-relaxed">
+                    Leader de la gestion immobilière digitale en Côte d'Ivoire. Nous transformons votre patrimoine en succès durable avec l'énergie urbaine d'Abidjan.
+                </p>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">share</span></a>
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">mail</span></a>
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">phone_in_talk</span></a>
+</div>
+</div>
+<div class="md:col-span-2">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Expertise</h4>
+<ul class="space-y-4">
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Vendre</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Louer</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Gérer</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Estimer</a></li>
+</ul>
+</div>
+<div class="md:col-span-2">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Secteurs</h4>
+<ul class="space-y-4">
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Cocody</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Plateau</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Marcory</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Assinie</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Siège Social</h4>
+<div class="space-y-4">
+<p class="text-sm font-bold text-forest/70 leading-relaxed">
+                        Boulevard de Marseille, Zone 4C<br/>
+                        Immeuble Urban One, 4ème étage<br/>
+                        Abidjan, Côte d'Ivoire
+                    </p>
+<p class="text-sm font-black text-primary">+225 07 00 00 00 00</p>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-forest/5 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-[10px] font-black uppercase tracking-widest text-forest/30">© 2026 Accueil Immo CI. Tous droits réservés.</p>
+<div class="flex gap-8">
+<a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Mentions Légales</a>
+<a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Confidentialité</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --gold-accent: #D4AF37;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .luxury-gradient {
+            background: linear-gradient(135deg, #064E3B 0%, #032b21 100%);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "gold": "#D4AF37",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+<title>Conciergerie Privée | Accueil Immo Énergie Urbaine</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+<span class="material-symbols-outlined text-3xl">domain</span>
+</div>
+<div class="flex flex-col -space-y-1">
+<span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+<span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Conciergerie Luxe</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-10">
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="#">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="#">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="#">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+<a class="text-sm font-bold text-primary transition-colors flex items-center gap-1" href="#">Conciergerie <span class="size-1.5 rounded-full bg-primary"></span></a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-forest hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">account_circle</span>
+                Espace Membre
+            </button>
+<button class="bg-forest text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-forest/20 hover:scale-105 active:scale-95 transition-all">
+                DEVENIR CLIENT
+            </button>
+</div>
+</div>
+</header>
+<main>
+<section class="relative min-h-[70vh] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Luxe Abidjan" class="w-full h-full object-cover brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4H_6wYecz1Fh7cwQgXIe-IPMxlstYOmFh2bE51-WfDGfjhAUjSpzGiU05YZJ8NZAVFsAo2VZLFej179upL4SWH-Gq42R7g4u_ZOQrXt-kBfsqPi7t42od9CvsRN8HjkzarLSEgcF3MPQHJLdo-I9E3vwJ9Nb7jS-hWM0-bCuMid11ESy-HFZaTOFuPJ74VszDfnqsSkm-cSOxTQHr3vHA4jbQCPYWVQRzbjWxBvKMznJMnFd-GJZWDrke3f6GjU1hkfpasYqnZfAm"/>
+<div class="absolute inset-0 bg-gradient-to-r from-forest/90 via-forest/40 to-transparent"></div>
+</div>
+<div class="max-w-[1400px] mx-auto px-8 relative z-10 w-full">
+<div class="max-w-3xl space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+<span class="material-symbols-outlined text-gold text-sm">stars</span>
+<span class="text-xs font-black uppercase tracking-[0.2em] text-white">L'Art de Vivre à Abidjan</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tight">
+                    Conciergerie <br/><span class="text-primary italic">Privée.</span>
+</h1>
+<p class="text-xl text-white/80 max-w-xl leading-relaxed font-medium">
+                    Plus qu'un service immobilier, une signature de vie. Nous orchestrons votre quotidien avec excellence et discrétion dans toute la perle des lagunes.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl hover:bg-white hover:text-primary transition-all">
+                        Réserver un service
+                    </button>
+<button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white/20 transition-all">
+                        Nos Formules Premium
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 max-w-[1400px] mx-auto px-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+<div class="max-w-2xl">
+<span class="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Services Sur-Mesure</span>
+<h2 class="text-5xl font-black text-forest leading-tight">Votre temps est <span class="italic text-primary">Précieux.</span></h2>
+</div>
+<p class="text-forest/60 font-medium max-w-sm">Une gamme complète de services exclusifs pour les résidents et investisseurs les plus exigeants de Côte d'Ivoire.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="neo-card bg-white p-10 border border-forest/5 group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] group-hover:bg-primary/10 transition-colors"></div>
+<div class="size-16 bg-forest rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-white text-3xl">flight_land</span>
+</div>
+<h3 class="text-2xl font-black text-forest mb-4">Accueil Aéroport</h3>
+<p class="text-forest/60 leading-relaxed text-sm mb-8">Transferts VIP depuis l'Aéroport Félix-Houphouët-Boigny vers votre résidence en berline de luxe avec chauffeur privé.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Fast-track douanes</li>
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Rafraîchissements à bord</li>
+</ul>
+<button class="text-primary font-black text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Réserver <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<div class="neo-card bg-white p-10 border border-forest/5 group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] group-hover:bg-accent/10 transition-colors"></div>
+<div class="size-16 bg-accent rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-forest text-3xl">cleaning_services</span>
+</div>
+<h3 class="text-2xl font-black text-forest mb-4">Entretien &amp; Intendance</h3>
+<p class="text-forest/60 leading-relaxed text-sm mb-8">Un service de nettoyage de prestige et une gestion technique irréprochable de votre propriété à Cocody ou Marcory.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Gouvernance de maison</li>
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Blanchisserie &amp; Pressing</li>
+</ul>
+<button class="text-primary font-black text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">En savoir plus <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<div class="neo-card bg-white p-10 border border-forest/5 group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-bl-[100px] group-hover:bg-gold/10 transition-colors"></div>
+<div class="size-16 bg-gold rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+<span class="material-symbols-outlined text-white text-3xl">concierge</span>
+</div>
+<h3 class="text-2xl font-black text-forest mb-4">Assistance Personnalisée</h3>
+<p class="text-forest/60 leading-relaxed text-sm mb-8">Réservations exclusives (restaurants, golf, sorties), personal shopping et organisation d'événements privés.</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Accès VIP événements</li>
+<li class="flex items-center gap-2 text-xs font-bold text-forest/80"><span class="material-symbols-outlined text-primary text-sm">check_circle</span> Chef à domicile</li>
+</ul>
+<button class="text-primary font-black text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Contacter mon concierge <span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+</div>
+</section>
+<section class="bg-forest py-24 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 blur-[120px] rounded-full -mr-48 -mt-48"></div>
+<div class="max-w-[1400px] mx-auto px-8 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4 pt-12">
+<img alt="Lifestyle 1" class="w-full h-80 object-cover rounded-3xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNR8CmM2Z3muvts2G8pwgUNMgbj1wUBv-1d4-5fW2uASDDBNw0k5zymlUdl9v-GwbDE4uJHFjXizdTmoYHQarcB7pSZXl6qryEvCtEm37ZnVNzhvOpkiW3acAD9df8TG9qJ5HhCSCMBG9q4-KF3xM9z8NYFn2BzXpR5fMeOPLpl6A-jwGEXGNZ8h74aAE13Egd8YnQnQ3IjsGj-1Z_OocQX7JOXIku8Ia9uHMxONb1NxOxQYsiRZ7e3zJt2P7UDUgeIOpQ6rEmRwS"/>
+<img alt="Lifestyle 2" class="w-full h-60 object-cover rounded-3xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBADpfDHDGFD397qaNUeM9KmerNKEC06D4BT1unzZd9Zr-sHKV2LW0mT7NkcKet-Vpai8zoW2-gH92_GTkHNAFWX6HMEKXjW6luf4AK5BJhnTM_DjNZ2kxcUI8V0RNSb7g33SDbugOkvgIJ-w6dflTNAZFbtnid05stP2422qiYASfrQHLArRdwJp2q-f0btEGbpPM10D2k1JUXqzhQw0B0_p-EVxubY2r2WkFJt06vF4CKkJxs9LtonVSNFz7gyZjWDfDhDQwkZC94"/>
+</div>
+<div class="space-y-4">
+<img alt="Lifestyle 3" class="w-full h-60 object-cover rounded-3xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNR8CmM2Z3muvts2G8pwgUNMgbj1wUBv-1d4-5fW2uASDDBNw0k5zymlUdl9v-GwbDE4uJHFjXizdTmoYHQarcB7pSZXl6qryEvCtEm37ZnVNzhvOpkiW3acAD9df8TG9qJ5HhCSCMBG9q4-KF3xM9z8NYFn2BzXpR5fMeOPLpl6A-jwGEXGNZ8h74aAE13Egd8YnQnQ3IjsGj-1Z_OocQX7JOXIku8Ia9uHMxONb1NxOxQYsiRZ7e3zJt2P7UDUgeIOpQ6rEmRwS"/>
+<img alt="Lifestyle 4" class="w-full h-80 object-cover rounded-3xl shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIlJ8BorpA3g4KF578jk32d3fLztiblQzuq68I4mp5lzO3wiAqR1SZCCntEHA5kEjxmN3M3tpXzaORnlgsTGIO5X35cna1NjqvqfE2I27dLDtu7fEeL0vedPypWj0zmqz-Wza1CpM-sWYOR9M8ijerJcn4vseWURQiEBbbNQ6De92WfRUALOsPFIVo6bvv6TJLhXBHbVpvPeNQO03bvEfaDre8uLnj2gxUOX3IQyXMgllzLIoL-qypgXCYq53ggtmXwOYRvgKEiaBT"/>
+</div>
+</div>
+<div class="space-y-8">
+<span class="text-primary font-black uppercase tracking-[0.3em] text-[10px]">Expérience Signature</span>
+<h2 class="text-5xl font-black text-white leading-tight">L'Excellence Sans <span class="text-primary italic">Frontières.</span></h2>
+<p class="text-white/60 text-lg leading-relaxed">
+                        Que vous soyez en déplacement d'affaires au Plateau ou en villégiature à Assinie, notre réseau de concierges experts répond à chacune de vos envies avec une réactivité absolue.
+                    </p>
+<div class="grid grid-cols-2 gap-8 py-8 border-y border-white/10">
+<div>
+<span class="text-4xl font-black text-white block mb-2">24/7</span>
+<span class="text-xs font-bold text-white/40 uppercase tracking-widest">Disponibilité Totale</span>
+</div>
+<div>
+<span class="text-4xl font-black text-white block mb-2">15 min</span>
+<span class="text-xs font-bold text-white/40 uppercase tracking-widest">Temps de réponse moyen</span>
+</div>
+</div>
+<button class="group flex items-center gap-4 bg-white text-forest px-8 py-4 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-primary hover:text-white transition-all">
+                        Découvrir l'Expérience <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-[1400px] mx-auto px-8 py-24">
+<div class="luxury-gradient rounded-[3rem] p-12 lg:p-20 relative overflow-hidden flex flex-col items-center text-center">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+<div class="relative z-10 space-y-8 max-w-3xl">
+<div class="size-20 bg-primary/20 backdrop-blur-xl rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/30">
+<span class="material-symbols-outlined text-primary text-4xl">support_agent</span>
+</div>
+<h2 class="text-4xl md:text-6xl font-black text-white leading-tight">Besoin d'un service <span class="text-primary italic">Immédiat ?</span></h2>
+<p class="text-white font-bold text-lg opacity-80">Votre concierge personnel est à portée de clic. Discutez avec nous en direct pour toute demande urgente.</p>
+<div class="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+<button class="bg-primary text-white px-10 py-5 rounded-3xl font-black flex items-center justify-center gap-4 shadow-2xl hover:scale-105 transition-all text-lg">
+<svg class="size-8" fill="currentColor" viewBox="0 0 24 24">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+</svg>
+                        WhatsApp Concierge
+                    </button>
+<button class="bg-white/10 backdrop-blur-md text-white border-2 border-white/20 px-10 py-5 rounded-3xl font-black hover:bg-white hover:text-forest transition-all text-lg">
+                        Nous appeler
+                    </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white pt-24 pb-12 border-t border-forest/5">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
+<div class="md:col-span-5 space-y-6">
+<div class="flex items-center gap-3">
+<div class="bg-forest text-primary p-1.5 rounded-lg rotate-3 shadow-md">
+<span class="material-symbols-outlined text-2xl">domain</span>
+</div>
+<span class="text-xl font-black tracking-tighter uppercase italic text-forest">Accueil<span class="text-primary">Immo</span></span>
+</div>
+<p class="text-forest/60 font-medium max-w-sm leading-relaxed">
+                    L'excellence immobilière et les services de conciergerie les plus exclusifs d'Abidjan réunis sur une plateforme unique.
+                </p>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">share</span></a>
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">mail</span></a>
+<a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">phone_in_talk</span></a>
+</div>
+</div>
+<div class="md:col-span-2">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Conciergerie</h4>
+<ul class="space-y-4">
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Transferts VIP</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Intendance</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Events Privés</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Shopping</a></li>
+</ul>
+</div>
+<div class="md:col-span-2">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Plateforme</h4>
+<ul class="space-y-4">
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Vente Luxe</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Location</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Blog Lifestyle</a></li>
+<li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Partenaires</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Abidjan Concierge</h4>
+<div class="space-y-4">
+<p class="text-sm font-bold text-forest/70 leading-relaxed">
+                        Résidence Le Cristal, 10ème étage<br/>
+                        Boulevard Lagunaire, Cocody<br/>
+                        Abidjan, Côte d'Ivoire
+                    </p>
+<p class="text-sm font-black text-primary">+225 07 01 23 45 67</p>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-forest/5 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-[10px] font-black uppercase tracking-widest text-forest/30">© 2024 Accueil Immo Conciergerie. Tous droits réservés.</p>
+<div class="flex gap-8">
+<a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Mentions Légales</a>
+<a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Confidentialité</a>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

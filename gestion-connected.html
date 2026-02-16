@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="assets/js/api.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Tableau de Bord | Accueil Immo CI</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+            <div class="flex items-center gap-3">
+                <div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">domain</span>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Urban Energy</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold text-primary hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <div class="auth-user">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-extrabold text-forest user-name"></span>
+                        <button class="logout-btn text-sm font-extrabold text-red-500 hover:text-red-600 transition-colors">
+                            <span class="material-symbols-outlined text-xl">logout</span>
+                        </button>
+                    </div>
+                </div>
+                <a href="deposeannonce.html" class="bg-primary text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    DÉPOSER UNE ANNONCE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-8 py-8">
+        <!-- Message de bienvenue -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-forest mb-2">Tableau de Bord</h1>
+            <p class="text-forest/60">Gérez vos biens et suivez vos performances</p>
+        </div>
+
+        <!-- Statistiques principales -->
+        <div id="statsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Les statistiques seront chargées ici -->
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="mb-8">
+            <h2 class="text-xl font-black text-forest mb-4">Actions Rapides</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <button onclick="window.location.href='deposeannonce.html'" class="neo-card bg-white p-6 text-left hover:bg-primary hover:text-white transition-all group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-primary/20 p-3 rounded-2xl group-hover:bg-white/20 transition-colors">
+                            <span class="material-symbols-outlined text-2xl text-primary group-hover:text-white">add_home</span>
+                        </div>
+                        <h3 class="text-lg font-black">Nouveau Bien</h3>
+                    </div>
+                    <p class="text-sm text-forest/60">Ajouter une nouvelle propriété</p>
+                </button>
+                
+                <button onclick="window.location.href='pagelocation.html'" class="neo-card bg-white p-6 text-left hover:bg-primary hover:text-white transition-all group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-forest/20 p-3 rounded-2xl group-hover:bg-white/20 transition-colors">
+                            <span class="material-symbols-outlined text-2xl text-forest group-hover:text-white">apartment</span>
+                        </div>
+                        <h3 class="text-lg font-black">Mes Locations</h3>
+                    </div>
+                    <p class="text-sm text-forest/60">Gérer les contrats de location</p>
+                </button>
+                
+                <button onclick="window.location.href='conciergerie.html'" class="neo-card bg-white p-6 text-left hover:bg-primary hover:text-white transition-all group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="bg-accent/20 p-3 rounded-2xl group-hover:bg-white/20 transition-colors">
+                            <span class="material-symbols-outlined text-2xl text-accent group-hover:text-white">room_service</span>
+                        </div>
+                        <h3 class="text-lg font-black">Conciergerie</h3>
+                    </div>
+                    <p class="text-sm text-forest/60">Services premium</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mes biens -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black text-forest">Mes Biens</h2>
+                <button onclick="loadMyProperties()" class="text-primary font-black hover:text-primary/80 transition-colors">
+                    <span class="material-symbols-outlined mr-1">refresh</span>
+                    Actualiser
+                </button>
+            </div>
+            
+            <div id="myPropertiesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Les biens de l'utilisateur seront chargés ici -->
+            </div>
+        </div>
+
+        <!-- Activité récente -->
+        <div>
+            <h2 class="text-xl font-black text-forest mb-6">Activité Récente</h2>
+            <div id="recentActivity" class="space-y-4">
+                <!-- L'activité récente sera chargée ici -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Charger les données du tableau de bord
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadDashboardData();
+        });
+
+        async function loadDashboardData() {
+            try {
+                // Charger les statistiques
+                await loadStats();
+                
+                // Charger les biens de l'utilisateur
+                await loadMyProperties();
+                
+                // Charger l'activité récente
+                await loadRecentActivity();
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Charger les statistiques
+        async function loadStats() {
+            const container = document.getElementById('statsContainer');
+            UIHelper.showLoading(container);
+
+            try {
+                const response = await api.getDashboardStats();
+                const stats = response.data.stats;
+
+                container.innerHTML = `
+                    <div class="neo-card bg-white p-6">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-primary/20 p-3 rounded-2xl">
+                                <span class="material-symbols-outlined text-2xl text-primary">home</span>
+                            </div>
+                            <div class="text-3xl font-black text-forest">${stats.total_properties || 0}</div>
+                        </div>
+                        <div class="text-sm font-bold text-forest/60">Total Biens</div>
+                    </div>
+                    
+                    <div class="neo-card bg-white p-6">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-forest/20 p-3 rounded-2xl">
+                                <span class="material-symbols-outlined text-2xl text-forest">trending_up</span>
+                            </div>
+                            <div class="text-3xl font-black text-forest">${UIHelper.formatPrice(stats.monthly_revenue || 0)}</div>
+                        </div>
+                        <div class="text-sm font-bold text-forest/60">Revenu Mensuel</div>
+                    </div>
+                    
+                    <div class="neo-card bg-white p-6">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-accent/20 p-3 rounded-2xl">
+                                <span class="material-symbols-outlined text-2xl text-accent">check_circle</span>
+                            </div>
+                            <div class="text-3xl font-black text-forest">${stats.occupied_properties || 0}</div>
+                        </div>
+                        <div class="text-sm font-bold text-forest/60">Biens Occupés</div>
+                    </div>
+                    
+                    <div class="neo-card bg-white p-6">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-red-100 p-3 rounded-2xl">
+                                <span class="material-symbols-outlined text-2xl text-red-500">vacuum</span>
+                            </div>
+                            <div class="text-3xl font-black text-forest">${stats.vacant_properties || 0}</div>
+                        </div>
+                        <div class="text-sm font-bold text-forest/60">Biens Disponibles</div>
+                    </div>
+                `;
+            } catch (error) {
+                UIHelper.showError(container, 'Erreur lors du chargement des statistiques');
+            }
+        }
+
+        // Charger les biens de l'utilisateur
+        async function loadMyProperties() {
+            const container = document.getElementById('myPropertiesContainer');
+            
+            try {
+                const response = await api.getMyProperties();
+                const properties = response.data.properties;
+
+                if (properties && properties.length > 0) {
+                    container.innerHTML = properties.map(property => createPropertyCard(property)).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center py-12 text-forest/50">
+                            <span class="material-symbols-outlined text-6xl mb-4 block">home</span>
+                            <h3 class="text-xl font-black mb-2">Aucun bien</h3>
+                            <p>Commencez par ajouter votre première propriété</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                UIHelper.showError(container, 'Erreur lors du chargement de vos biens');
+            }
+        }
+
+        // Charger l'activité récente
+        async function loadRecentActivity() {
+            const container = document.getElementById('recentActivity');
+            UIHelper.showLoading(container);
+
+            try {
+                const response = await api.getRecentActivity();
+                const activities = response.data.activities;
+
+                if (activities && activities.length > 0) {
+                    container.innerHTML = activities.map(activity => createActivityItem(activity)).join('');
+                } else {
+                    container.innerHTML = '<p class="text-forest/50 text-center py-8">Aucune activité récente</p>';
+                }
+            } catch (error) {
+                UIHelper.showError(container, 'Erreur lors du chargement de l\'activité');
+            }
+        }
+
+        // Créer une carte de propriété pour le tableau de bord
+        function createPropertyCard(property) {
+            const images = property.images || [];
+            const firstImage = images.length > 0 ? `backend/uploads/properties/${images[0]}` : 'https://via.placeholder.com/400x300';
+            const statusColor = property.statut_occupation === 'occupe' ? 'text-red-500' : 'text-green-500';
+            const statusText = property.statut_occupation === 'occupe' ? 'Occupé' : 'Disponible';
+            
+            return `
+                <div class="neo-card bg-white overflow-hidden group cursor-pointer" onclick="editProperty(${property.id})">
+                    <div class="relative h-48 overflow-hidden">
+                        <img alt="${property.titre}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${firstImage}"/>
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black ${statusColor}">
+                                ${statusText}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-black text-forest mb-2 group-hover:text-primary transition-colors">${property.titre}</h3>
+                        <p class="text-sm font-bold text-forest/40 mb-4">
+                            <span class="material-symbols-outlined text-base">location_on</span> ${property.quartier || property.commune}
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="text-lg font-black text-forest">${UIHelper.formatPrice(property.prix)}/mois</div>
+                            <button class="text-primary hover:text-primary/80 transition-colors">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Créer un élément d'activité
+        function createActivityItem(activity) {
+            const activityIcons = {
+                'new_property': 'add_home',
+                'rental_signed': 'handshake',
+                'payment_received': 'payments',
+                'property_viewed': 'visibility',
+                'contact_request': 'mail'
+            };
+
+            const icon = activityIcons[activity.type] || 'notifications';
+            const timeAgo = UIHelper.formatDate(activity.created_at);
+
+            return `
+                <div class="neo-card bg-white p-4 flex items-center gap-4">
+                    <div class="bg-forest/10 p-3 rounded-2xl">
+                        <span class="material-symbols-outlined text-xl text-forest">${icon}</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-black text-forest">${activity.title}</div>
+                        <div class="text-sm text-forest/60">${activity.description}</div>
+                        <div class="text-xs text-forest/40 mt-1">${timeAgo}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fonctions d'action
+        function editProperty(id) {
+            window.location.href = `deposeannonce.html?id=${id}`;
+        }
+    </script>
+</body>
+</html>

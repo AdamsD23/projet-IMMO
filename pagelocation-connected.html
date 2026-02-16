@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="assets/js/api.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Locations | Accueil Immo CI</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+            <div class="flex items-center gap-3">
+                <div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">domain</span>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Urban Energy</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-sm font-bold text-primary hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a href="seconnecter.html" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-forest hover:text-primary transition-colors auth-login">
+                    <span class="material-symbols-outlined text-xl">account_circle</span>
+                    Se connecter
+                </a>
+                <div class="hidden auth-user">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-extrabold text-forest user-name"></span>
+                        <button class="logout-btn text-sm font-extrabold text-red-500 hover:text-red-600 transition-colors">
+                            <span class="material-symbols-outlined text-xl">logout</span>
+                        </button>
+                    </div>
+                </div>
+                <a href="deposeannonce.html" class="bg-primary text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    DÉPOSER UNE ANNONCE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Filtres -->
+        <section class="bg-forest py-12">
+            <div class="max-w-[1400px] mx-auto px-8">
+                <div class="bg-white rounded-3xl shadow-2xl p-8">
+                    <h2 class="text-2xl font-black text-forest mb-6">Trouver votre location idéale</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <!-- Type de bien -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-black text-forest/70">Type de bien</label>
+                            <select id="typeBien" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                <option value="">Tous les types</option>
+                                <option value="appartement">Appartement</option>
+                                <option value="villa">Villa</option>
+                                <option value="studio">Studio</option>
+                                <option value="duplex">Duplex</option>
+                            </select>
+                        </div>
+
+                        <!-- Commune -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-black text-forest/70">Commune</label>
+                            <select id="commune" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                                <option value="">Toutes les communes</option>
+                                <option value="cocody">Cocody</option>
+                                <option value="marcory">Marcory</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="riviera">Riviera</option>
+                                <option value="bingerville">Bingerville</option>
+                                <option value="assinie">Assinie</option>
+                                <option value="yopougon">Yopougon</option>
+                                <option value="treichville">Treichville</option>
+                            </select>
+                        </div>
+
+                        <!-- Prix min -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-black text-forest/70">Prix minimum</label>
+                            <input type="number" id="prixMin" placeholder="50 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                        </div>
+
+                        <!-- Prix max -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-black text-forest/70">Prix maximum</label>
+                            <input type="number" id="prixMax" placeholder="500 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Équipements -->
+                    <div class="mb-6">
+                        <label class="text-sm font-black text-forest/70 mb-3 block">Équipements</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="meuble" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Meublé</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="climatisation" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Climatisation</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="parking" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Parking</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="piscine" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Piscine</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="gardiennage" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Gardiennage</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Boutons -->
+                    <div class="flex gap-4">
+                        <button onclick="applyFilters()" class="bg-forest text-white px-8 py-3 rounded-xl font-black hover:bg-forest/90 transition-all">
+                            <span class="material-symbols-outlined mr-2">search</span>
+                            Rechercher
+                        </button>
+                        <button onclick="resetFilters()" class="bg-forest/10 text-forest px-8 py-3 rounded-xl font-black hover:bg-forest/20 transition-all">
+                            Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Résultats -->
+        <section class="py-12 max-w-[1400px] mx-auto px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-black text-forest">Biens disponibles</h2>
+                    <p class="text-forest/60 mt-1">
+                        <span id="resultCount">0</span> biens trouvés
+                    </p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <select id="sortBy" onchange="sortProperties()" class="px-4 py-2 border border-forest/20 rounded-lg">
+                        <option value="created_at">Plus récents</option>
+                        <option value="prix_asc">Prix croissant</option>
+                        <option value="prix_desc">Prix décroissant</option>
+                        <option value="surface_desc">Plus grandes surfaces</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div id="loadingState" class="hidden">
+                <div class="flex justify-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            </div>
+
+            <!-- Grid des propriétés -->
+            <div id="propertiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Les propriétés seront chargées ici -->
+            </div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="flex justify-center items-center gap-4 mt-12">
+                <!-- Pagination sera générée ici -->
+            </div>
+
+            <!-- Message si aucun résultat -->
+            <div id="noResults" class="hidden text-center py-12">
+                <div class="text-forest/50">
+                    <span class="material-symbols-outlined text-6xl mb-4 block">search_off</span>
+                    <h3 class="text-xl font-black mb-2">Aucun bien trouvé</h3>
+                    <p>Essayez de modifier vos filtres de recherche</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white py-20">
+        <div class="max-w-[1400px] mx-auto px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-forest text-primary p-1.5 rounded-lg rotate-3 shadow-md">
+                            <span class="material-symbols-outlined text-2xl">domain</span>
+                        </div>
+                        <span class="text-xl font-black tracking-tighter uppercase italic text-forest">Accueil<span class="text-primary">Immo</span></span>
+                    </div>
+                    <p class="text-forest/60 font-medium max-w-sm leading-relaxed">
+                        Leader de la gestion immobilière digitale en Côte d'Ivoire. Nous transformons votre patrimoine en succès durable avec l'énergie urbaine d'Abidjan.
+                    </p>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Expertise</h4>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="vente.html">Vendre</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="pagelocation.html">Louer</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="gestion.html">Gérer</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Estimer</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Secteurs</h4>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Cocody</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Plateau</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Marcory</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Assinie</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Siège Social</h4>
+                    <div class="space-y-4">
+                        <p class="text-sm font-bold text-forest/70 leading-relaxed">
+                            Boulevard de Marseille, Zone 4C<br/>
+                            Immeuble Urban One, 4ème étage<br/>
+                            Abidjan, Côte d'Ivoire
+                        </p>
+                        <p class="text-sm font-black text-primary">+225 07 00 00 00 00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentFilters = {};
+
+        // Charger les propriétés au chargement de la page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadProperties();
+        });
+
+        // Fonction pour charger les propriétés
+        async function loadProperties(page = 1) {
+            const loadingState = document.getElementById('loadingState');
+            const propertiesGrid = document.getElementById('propertiesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            loadingState.classList.remove('hidden');
+            propertiesGrid.innerHTML = '';
+            noResults.classList.add('hidden');
+
+            try {
+                const filters = getFilters();
+                const response = await api.getProperties({
+                    ...filters,
+                    statut_bien: 'location',
+                    page: page,
+                    per_page: 12
+                });
+
+                const properties = response.data.properties;
+                const pagination = response.data.pagination;
+
+                if (properties && properties.length > 0) {
+                    propertiesGrid.innerHTML = properties.map(property => createPropertyCard(property)).join('');
+                    document.getElementById('resultCount').textContent = pagination.total;
+                    
+                    currentPage = pagination.page;
+                    totalPages = pagination.total_pages;
+                    
+                    updatePagination();
+                } else {
+                    noResults.classList.remove('hidden');
+                    document.getElementById('resultCount').textContent = '0';
+                }
+            } catch (error) {
+                UIHelper.showError(propertiesGrid, 'Erreur lors du chargement des propriétés');
+                console.error('Error loading properties:', error);
+            } finally {
+                loadingState.classList.add('hidden');
+            }
+        }
+
+        // Fonction pour créer une carte de propriété
+        function createPropertyCard(property) {
+            const images = property.images || [];
+            const firstImage = images.length > 0 ? `backend/uploads/properties/${images[0]}` : 'https://via.placeholder.com/400x300';
+            
+            return `
+                <div class="neo-card bg-white overflow-hidden group cursor-pointer" onclick="viewProperty(${property.id})">
+                    <div class="relative h-72 overflow-hidden">
+                        <img alt="${property.titre}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${firstImage}"/>
+                        <div class="absolute top-6 left-6 flex flex-col gap-2">
+                            <span class="bg-forest text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">${property.type_bien}</span>
+                            ${property.statut_occupation === 'vacant' ? '<span class="bg-accent text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Disponible</span>' : ''}
+                        </div>
+                        <button onclick="event.stopPropagation(); toggleFavorite(${property.id})" class="absolute top-6 right-6 size-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-white hover:text-red-500 transition-all">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-black text-forest mb-1 group-hover:text-primary transition-colors">${property.titre}</h3>
+                                <p class="text-sm font-bold text-forest/40 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-base">location_on</span> ${property.quartier || property.commune}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 py-6 border-y border-forest/5 mb-6">
+                            ${property.nombre_chambres ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Chambres</span>
+                                <span class="font-extrabold text-forest">${property.nombre_chambres}</span>
+                            </div>` : ''}
+                            ${property.nombre_salles_bain ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Bains</span>
+                                <span class="font-extrabold text-forest">${property.nombre_salles_bain}</span>
+                            </div>` : ''}
+                            ${property.surface ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Surface</span>
+                                <span class="font-extrabold text-forest">${property.surface}m²</span>
+                            </div>` : ''}
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-primary uppercase tracking-widest">Par mois</span>
+                                <span class="text-2xl font-black text-forest italic">${UIHelper.formatPrice(property.prix)}</span>
+                            </div>
+                            <button class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined">arrow_outward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fonctions de filtre
+        function getFilters() {
+            const filters = {
+                type_bien: document.getElementById('typeBien').value,
+                commune: document.getElementById('commune').value,
+                prix_min: document.getElementById('prixMin').value,
+                prix_max: document.getElementById('prixMax').value
+            };
+
+            // Ajouter les équipements
+            if (document.getElementById('meuble').checked) filters.meuble = true;
+            if (document.getElementById('climatisation').checked) filters.climatisation = true;
+            if (document.getElementById('parking').checked) filters.parking = true;
+            if (document.getElementById('piscine').checked) filters.piscine = true;
+            if (document.getElementById('gardiennage').checked) filters.gardiennage = true;
+
+            // Supprimer les valeurs vides
+            Object.keys(filters).forEach(key => {
+                if (!filters[key] || filters[key] === '') {
+                    delete filters[key];
+                }
+            });
+
+            return filters;
+        }
+
+        function applyFilters() {
+            currentPage = 1;
+            currentFilters = getFilters();
+            loadProperties(currentPage);
+        }
+
+        function resetFilters() {
+            document.getElementById('typeBien').value = '';
+            document.getElementById('commune').value = '';
+            document.getElementById('prixMin').value = '';
+            document.getElementById('prixMax').value = '';
+            document.getElementById('meuble').checked = false;
+            document.getElementById('climatisation').checked = false;
+            document.getElementById('parking').checked = false;
+            document.getElementById('piscine').checked = false;
+            document.getElementById('gardiennage').checked = false;
+            document.getElementById('sortBy').value = 'created_at';
+            
+            currentFilters = {};
+            loadProperties(1);
+        }
+
+        function sortProperties() {
+            const sortBy = document.getElementById('sortBy').value;
+            currentFilters.sort_by = sortBy;
+            loadProperties(1);
+        }
+
+        // Pagination
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+            
+            // Bouton précédent
+            if (currentPage > 1) {
+                paginationHTML += `<button onclick="loadProperties(${currentPage - 1})" class="px-4 py-2 border border-forest/20 rounded-lg hover:bg-forest hover:text-white transition-all">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </button>`;
+            }
+            
+            // Numéros de page
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const isActive = i === currentPage;
+                paginationHTML += `<button onclick="loadProperties(${i})" class="px-4 py-2 ${isActive ? 'bg-forest text-white' : 'border border-forest/20 hover:bg-forest hover:text-white'} rounded-lg transition-all">
+                    ${i}
+                </button>`;
+            }
+            
+            // Bouton suivant
+            if (currentPage < totalPages) {
+                paginationHTML += `<button onclick="loadProperties(${currentPage + 1})" class="px-4 py-2 border border-forest/20 rounded-lg hover:bg-forest hover:text-white transition-all">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </button>`;
+            }
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // Fonctions utilitaires
+        function viewProperty(id) {
+            window.location.href = `pagelocation.html?id=${id}`;
+        }
+
+        function toggleFavorite(id) {
+            // Implémenter la gestion des favoris
+            console.log('Toggle favorite for property:', id);
+        }
+    </script>
+</body>
+</html>

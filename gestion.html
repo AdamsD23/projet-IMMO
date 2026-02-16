@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="assets/js/api.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ee8c2b",
+                        "secondary-green": "#2e7d32",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#221910",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .ios-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#181411] dark:text-white min-h-screen">
+<!-- Top Navigation Bar -->
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 ios-blur px-4 pt-6 pb-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary" data-alt="Photo de profil du gérant immobilier" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCfcd_PrRWqym-kWfFBjlKEp8JL1TdK8Urje8N-LBL06koSm1O3JhdNNFfjpXahhsqhYEnRtExye8-F0XSVV-2MYsF8_Ft1bbyT-jOvok6S35FEIaceV-4ctybCc2E05veGwlWCQ6LBtF0joHXrAg8mEgZephRd8Lg3JzFblXLQDEC6u4StAfifmVqOPcwYf9M1L0TSzhSo2uG5fLdL-1i_FTi-S-LJ_KiJ2Jf5zQ3fal0fwsNG8z9k00Iu1tuz5kuEpavMkRhZTpub");'></div>
+<div>
+<p class="text-[11px] text-[#897561] dark:text-[#c0b0a0] font-semibold uppercase tracking-wider">Bienvenue</p>
+<h1 class="text-lg font-extrabold leading-tight">Mamadou Koné</h1>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-full bg-white dark:bg-[#332a22] shadow-sm">
+<span class="material-symbols-outlined text-[#181411] dark:text-white">notifications</span>
+</button>
+</div>
+</nav>
+<main class="px-4 pb-24">
+<!-- Hero Card: Portfolio Value -->
+<div class="mt-4 bg-primary rounded-2xl p-6 text-white shadow-xl shadow-primary/20 relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute -right-10 -top-10 size-40 bg-white/10 rounded-full"></div>
+<div class="relative z-10">
+<p class="text-white/80 text-sm font-medium">Revenu Mensuel Total</p>
+<div class="flex items-baseline gap-1 mt-1">
+<h2 class="text-3xl font-extrabold tracking-tight">2.500.000</h2>
+<span class="text-lg font-bold">CFA</span>
+</div>
+<div class="mt-6 flex justify-between items-end">
+<div class="flex items-center gap-2 bg-white/20 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +12.5% vs mois dernier
+                    </div>
+<button class="bg-white text-primary px-4 py-2 rounded-lg text-sm font-bold shadow-lg">
+                        Détails
+                    </button>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="mt-8">
+<h3 class="text-base font-bold mb-4 flex items-center gap-2">
+<span class="size-2 bg-primary rounded-full"></span>
+                Actions Rapides
+            </h3>
+<div class="grid grid-cols-3 gap-4">
+<button class="flex flex-col items-center gap-2">
+<div class="size-16 flex items-center justify-center bg-white dark:bg-[#332a22] rounded-2xl shadow-sm border border-black/5 dark:border-white/5">
+<span class="material-symbols-outlined text-primary text-3xl">add_business</span>
+</div>
+<span class="text-xs font-bold text-[#897561] dark:text-[#c0b0a0]">Nouveau Bien</span>
+</button>
+<button class="flex flex-col items-center gap-2">
+<div class="size-16 flex items-center justify-center bg-white dark:bg-[#332a22] rounded-2xl shadow-sm border border-black/5 dark:border-white/5">
+<span class="material-symbols-outlined text-secondary-green text-3xl">payments</span>
+</div>
+<span class="text-xs font-bold text-[#897561] dark:text-[#c0b0a0]">Loyers</span>
+</button>
+<button class="flex flex-col items-center gap-2">
+<div class="size-16 flex items-center justify-center bg-white dark:bg-[#332a22] rounded-2xl shadow-sm border border-black/5 dark:border-white/5">
+<span class="material-symbols-outlined text-[#181411] dark:text-white text-3xl">build</span>
+</div>
+<span class="text-xs font-bold text-[#897561] dark:text-[#c0b0a0]">Entretien</span>
+</button>
+</div>
+</div>
+<!-- Properties Overview -->
+<div class="mt-10">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-base font-bold">Aperçu des Biens</h3>
+<button class="text-primary text-sm font-bold">Tout voir</button>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Property Card 1 -->
+<div class="bg-white dark:bg-[#332a22] rounded-2xl overflow-hidden shadow-sm border border-black/5 dark:border-white/5">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Villa moderne à Cocody Abidjan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBToj39Nm-YJ7-4bNtqiVqgZiyCwb3FrlYLPNgNI8jan0QNfRWc5iI9RiMxdKEl43Ny7Zei8orbZNRH4mOG6Vu4NvT8jyELBPxZnmud6JVh4UKC6WyN91Me4hjCVXz6go-Yxit1xVzIkPABmSOR4AYwumI2zYoVXKhHh-bPLOpMACP14E1TG1WMGpaGsIVf2YYuoBHqoZyLyh-Il_3Kp024gL48cH87ic4MnDZVOjeaV4xXbK0cZAdHtYvJo2wrhxnz9-k--1Xn8sXc");'>
+<div class="absolute top-4 left-4 bg-secondary-green text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                            Occupé
+                        </div>
+<div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md text-[#181411] px-3 py-1.5 rounded-lg text-sm font-bold">
+                            450.000 CFA <span class="text-[10px] font-normal text-[#897561]">/mois</span>
+</div>
+</div>
+<div class="p-4">
+<h4 class="text-lg font-bold">Villa Cocody Riviera</h4>
+<p class="text-sm text-[#897561] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-base">location_on</span>
+                            Riviera 3, Abidjan
+                        </p>
+<div class="mt-4 flex gap-4 border-t border-black/5 pt-3">
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span class="text-xs font-semibold">4 Ch.</span>
+</div>
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">bathtub</span>
+<span class="text-xs font-semibold">3 Sdb.</span>
+</div>
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">square_foot</span>
+<span class="text-xs font-semibold">250 m²</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Property Card 2 -->
+<div class="bg-white dark:bg-[#332a22] rounded-2xl overflow-hidden shadow-sm border border-black/5 dark:border-white/5">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Appartement de standing au Plateau" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOfJXFZWRzS1741EhZpifq3xlJKg2ARkApMRpQ5loBwuZADJxf_3OL1pVh696a4fTXIEYY9vXo_mDL3b4te5nxXB9FJZzxxrK8gcs3VxmfNof4Whp-DORoZYs5JvAC0d8Txxi5QJSb_0afAwPfW4A39F0b5zLZSKfNCKFyiInkTT_wjrW3Srn6CdghsV8MNk4a3q6XrgurefKL3aWHGumPvOv5FLBl7HiT2qS9QypCEdkGlLMSqViRNuPyJIT1YYVU9H3-mA4T-iPX");'>
+<div class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                            Vacant
+                        </div>
+<div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md text-[#181411] px-3 py-1.5 rounded-lg text-sm font-bold">
+                            250.000 CFA <span class="text-[10px] font-normal text-[#897561]">/mois</span>
+</div>
+</div>
+<div class="p-4">
+<h4 class="text-lg font-bold">Studio Standing Plateau</h4>
+<p class="text-sm text-[#897561] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-base">location_on</span>
+                            Le Plateau, Abidjan
+                        </p>
+<div class="mt-4 flex gap-4 border-t border-black/5 pt-3">
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">bed</span>
+<span class="text-xs font-semibold">1 Ch.</span>
+</div>
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">bathtub</span>
+<span class="text-xs font-semibold">1 Sdb.</span>
+</div>
+<div class="flex items-center gap-1 text-[#897561]">
+<span class="material-symbols-outlined text-sm">square_foot</span>
+<span class="text-xs font-semibold">45 m²</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- iOS Bottom Navigation Bar -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-background-dark/95 ios-blur border-t border-black/5 dark:border-white/10 px-6 pb-8 pt-3 z-50">
+<div class="flex justify-between items-center max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined font-variation-fill-1">home</span>
+<span class="text-[10px] font-bold">Accueil</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#897561] dark:text-[#c0b0a0]">
+<span class="material-symbols-outlined">apartment</span>
+<span class="text-[10px] font-bold">Biens</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#897561] dark:text-[#c0b0a0]">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#897561] dark:text-[#c0b0a0]">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Réglages</span>
+</button>
+</div>
+<!-- iOS Home Indicator simulation -->
+<div class="w-32 h-1 bg-black/20 dark:bg-white/20 rounded-full mx-auto mt-4"></div>
+</footer>
+</body></html>

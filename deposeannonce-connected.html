@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="assets/js/api.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Déposer Annonce | Accueil Immo CI</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+            <div class="flex items-center gap-3">
+                <div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">domain</span>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Urban Energy</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a href="seconnecter.html" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-forest hover:text-primary transition-colors auth-login">
+                    <span class="material-symbols-outlined text-xl">account_circle</span>
+                    Se connecter
+                </a>
+                <div class="hidden auth-user">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-extrabold text-forest user-name"></span>
+                        <button class="logout-btn text-sm font-extrabold text-red-500 hover:text-red-600 transition-colors">
+                            <span class="material-symbols-outlined text-xl">logout</span>
+                        </button>
+                    </div>
+                </div>
+                <a href="deposeannonce.html" class="bg-primary text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    DÉPOSER UNE ANNONCE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1400px] mx-auto px-8 py-8">
+        <!-- En-tête -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-black text-forest mb-4">Déposer une Annonce</h1>
+            <p class="text-lg text-forest/60 max-w-2xl mx-auto">Mettez votre bien en valeur avec notre plateforme premium</p>
+        </div>
+
+        <!-- Progression -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-4">
+                    <div id="step1" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-black">1</div>
+                    <div class="flex-1 h-1 bg-forest/20 rounded-full"></div>
+                    <div id="step2" class="w-10 h-10 bg-forest/20 text-forest rounded-full flex items-center justify-center font-black">2</div>
+                    <div class="flex-1 h-1 bg-forest/20 rounded-full"></div>
+                    <div id="step3" class="w-10 h-10 bg-forest/20 text-forest rounded-full flex items-center justify-center font-black">3</div>
+                    <div class="flex-1 h-1 bg-forest/20 rounded-full"></div>
+                    <div id="step4" class="w-10 h-10 bg-forest/20 text-forest rounded-full flex items-center justify-center font-black">4</div>
+                </div>
+            </div>
+            <div class="flex justify-between text-sm font-black text-forest/60">
+                <span>Informations de base</span>
+                <span>Détails du bien</span>
+                <span>Photos</span>
+                <span>Confirmation</span>
+            </div>
+        </div>
+
+        <!-- Formulaire -->
+        <form id="propertyForm" onsubmit="handleSubmit(event)" class="space-y-8">
+            <!-- Étape 1: Informations de base -->
+            <div id="step1Content" class="neo-card bg-white p-8">
+                <h2 class="text-2xl font-black text-forest mb-6">Informations de base</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Titre de l'annonce *</label>
+                        <input type="text" id="titre" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Villa moderne avec piscine">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Type de bien *</label>
+                        <select id="typeBien" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            <option value="">Sélectionnez...</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="villa">Villa</option>
+                            <option value="studio">Studio</option>
+                            <option value="duplex">Duplex</option>
+                            <option value="terrain">Terrain</option>
+                            <option value="bureau">Bureau</option>
+                            <option value="commerce">Commerce</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Statut *</label>
+                        <select id="statutBien" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            <option value="">Sélectionnez...</option>
+                            <option value="location">Location</option>
+                            <option value="vente">Vente</option>
+                            <option value="gestion">Gestion</option>
+                        </select>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Prix *</label>
+                        <input type="number" id="prix" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="150000">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-black text-forest/70">Description</label>
+                    <textarea id="description" rows="4" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Décrivez votre bien en détail..."></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="button" onclick="nextStep(2)" class="bg-forest text-white px-8 py-3 rounded-xl font-black hover:bg-forest/90 transition-all">
+                        Suivant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Étape 2: Détails du bien -->
+            <div id="step2Content" class="neo-card bg-white p-8 hidden">
+                <h2 class="text-2xl font-black text-forest mb-6">Détails du bien</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Surface (m²)</label>
+                        <input type="number" id="surface" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="120">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Nombre de pièces</label>
+                        <input type="number" id="nombrePieces" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="4">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Nombre de chambres</label>
+                        <input type="number" id="nombreChambres" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="3">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Nombre de salles de bain</label>
+                        <input type="number" id="nombreSallesBain" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="2">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Étage</label>
+                        <input type="number" id="etage" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="1">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-black text-forest/70">Adresse *</label>
+                    <input type="text" id="adresse" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Riviera 3, Abidjan">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Quartier</label>
+                        <input type="text" id="quartier" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Zone 4">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-black text-forest/70">Commune *</label>
+                        <select id="commune" required class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            <option value="">Sélectionnez...</option>
+                            <option value="cocody">Cocody</option>
+                            <option value="marcory">Marcory</option>
+                            <option value="plateau">Plateau</option>
+                            <option value="riviera">Riviera</option>
+                            <option value="bingerville">Bingerville</option>
+                            <option value="assinie">Assinie</option>
+                            <option value="yopougon">Yopougon</option>
+                            <option value="treichville">Treichville</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="button" onclick="previousStep(1)" class="bg-forest/10 text-forest px-8 py-3 rounded-xl font-black hover:bg-forest/20 transition-all">
+                        Précédent
+                    </button>
+                    <button type="button" onclick="nextStep(3)" class="bg-forest text-white px-8 py-3 rounded-xl font-black hover:bg-forest/90 transition-all">
+                        Suivant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Étape 3: Photos -->
+            <div id="step3Content" class="neo-card bg-white p-8 hidden">
+                <h2 class="text-2xl font-black text-forest mb-6">Photos du bien</h2>
+                
+                <div class="mb-6">
+                    <div class="border-2 border-dashed border-forest/30 rounded-2xl p-8 text-center">
+                        <input type="file" id="imageUpload" multiple accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                        <label for="imageUpload" class="cursor-pointer">
+                            <div class="flex flex-col items-center gap-4">
+                                <div class="bg-forest/10 p-6 rounded-full">
+                                    <span class="material-symbols-outlined text-4xl text-forest">add_photo_alternate</span>
+                                </div>
+                                <div>
+                                    <div class="text-lg font-black text-forest">Ajouter des photos</div>
+                                    <div class="text-sm text-forest/60">Cliquez ou glissez-déposez les images ici</div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="imagePreview" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Les aperçus d'images seront affichés ici -->
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="button" onclick="previousStep(2)" class="bg-forest/10 text-forest px-8 py-3 rounded-xl font-black hover:bg-forest/20 transition-all">
+                        Précédent
+                    </button>
+                    <button type="button" onclick="nextStep(4)" class="bg-forest text-white px-8 py-3 rounded-xl font-black hover:bg-forest/90 transition-all">
+                        Suivant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Étape 4: Confirmation -->
+            <div id="step4Content" class="neo-card bg-white p-8 hidden">
+                <h2 class="text-2xl font-black text-forest mb-6">Confirmation et publication</h2>
+                
+                <div id="propertySummary" class="space-y-6 mb-8">
+                    <!-- Le résumé de la propriété sera affiché ici -->
+                </div>
+
+                <div class="bg-forest/5 p-6 rounded-2xl mb-8">
+                    <h3 class="text-lg font-black text-forest mb-4">Équipements et services</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="meuble" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Meublé</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="climatisation" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Climatisation</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="parking" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Parking</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="piscine" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Piscine</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="gardiennage" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Gardiennage</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="groupeElectrogene" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                            <span class="text-sm font-medium">Groupe électrogène</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button type="button" onclick="previousStep(3)" class="bg-forest/10 text-forest px-8 py-3 rounded-xl font-black hover:bg-forest/20 transition-all">
+                        Précédent
+                    </button>
+                    <button type="submit" id="submitBtn" class="bg-primary text-white px-8 py-3 rounded-xl font-black hover:bg-primary/90 transition-all flex items-center gap-3">
+                        <span id="submitText">Publier l'annonce</span>
+                        <div id="submitSpinner" class="hidden animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Message container -->
+        <div id="messageContainer" class="fixed top-24 right-8 z-50 max-w-md"></div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        let uploadedImages = [];
+
+        // Navigation entre les étapes
+        function nextStep(step) {
+            if (validateCurrentStep()) {
+                showStep(step);
+            }
+        }
+
+        function previousStep(step) {
+            showStep(step);
+        }
+
+        function showStep(step) {
+            // Cacher toutes les étapes
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`step${i}Content`).classList.add('hidden');
+                document.getElementById(`step${i}`).classList.remove('bg-primary', 'text-white');
+                document.getElementById(`step${i}`).classList.add('bg-forest/20', 'text-forest');
+            }
+
+            // Afficher l'étape actuelle
+            document.getElementById(`step${step}Content`).classList.remove('hidden');
+            document.getElementById(`step${step}`).classList.remove('bg-forest/20', 'text-forest');
+            document.getElementById(`step${step}`).classList.add('bg-primary', 'text-white');
+
+            currentStep = step;
+
+            // Si on arrive à l'étape 4, générer le résumé
+            if (step === 4) {
+                generateSummary();
+            }
+        }
+
+        // Validation de l'étape actuelle
+        function validateCurrentStep() {
+            switch (currentStep) {
+                case 1:
+                    const titre = document.getElementById('titre').value;
+                    const typeBien = document.getElementById('typeBien').value;
+                    const statutBien = document.getElementById('statutBien').value;
+                    const prix = document.getElementById('prix').value;
+
+                    if (!titre || !typeBien || !statutBien || !prix) {
+                        showMessage('Veuillez remplir tous les champs obligatoires', 'error');
+                        return false;
+                    }
+                    break;
+                case 2:
+                    const adresse = document.getElementById('adresse').value;
+                    const commune = document.getElementById('commune').value;
+
+                    if (!adresse || !commune) {
+                        showMessage('Veuillez remplir l\'adresse et la commune', 'error');
+                        return false;
+                    }
+                    break;
+            }
+            return true;
+        }
+
+        // Gestion de l'upload d'images
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            const preview = document.getElementById('imagePreview');
+
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageId = Date.now() + Math.random();
+                        uploadedImages.push({
+                            id: imageId,
+                            file: file,
+                            url: e.target.result
+                        });
+
+                        const imageElement = document.createElement('div');
+                        imageElement.className = 'relative group';
+                        imageElement.innerHTML = `
+                            <img src="${e.target.result}" class="w-full h-32 object-cover rounded-xl">
+                            <button type="button" onclick="removeImage(${imageId})" class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="material-symbols-outlined text-sm">close</span>
+                            </button>
+                        `;
+                        preview.appendChild(imageElement);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function removeImage(imageId) {
+            uploadedImages = uploadedImages.filter(img => img.id !== imageId);
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            uploadedImages.forEach(img => {
+                const imageElement = document.createElement('div');
+                imageElement.className = 'relative group';
+                imageElement.innerHTML = `
+                    <img src="${img.url}" class="w-full h-32 object-cover rounded-xl">
+                    <button type="button" onclick="removeImage(${img.id})" class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="material-symbols-outlined text-sm">close</span>
+                    </button>
+                `;
+                preview.appendChild(imageElement);
+            });
+        }
+
+        // Générer le résumé
+        function generateSummary() {
+            const summary = document.getElementById('propertySummary');
+            const titre = document.getElementById('titre').value;
+            const typeBien = document.getElementById('typeBien').value;
+            const statutBien = document.getElementById('statutBien').value;
+            const prix = document.getElementById('prix').value;
+            const surface = document.getElementById('surface').value;
+            const adresse = document.getElementById('adresse').value;
+            const commune = document.getElementById('commune').value;
+
+            summary.innerHTML = `
+                <div class="bg-forest/5 p-6 rounded-2xl">
+                    <h3 class="text-lg font-black text-forest mb-4">Résumé de votre annonce</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-sm text-forest/60">Titre:</span>
+                            <div class="font-black">${titre}</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Type:</span>
+                            <div class="font-black">${typeBien}</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Statut:</span>
+                            <div class="font-black">${statutBien}</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Prix:</span>
+                            <div class="font-black">${UIHelper.formatPrice(prix)}</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Surface:</span>
+                            <div class="font-black">${surface}m²</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Adresse:</span>
+                            <div class="font-black">${adresse}, ${commune}</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-forest/60">Photos:</span>
+                            <div class="font-black">${uploadedImages.length} image(s)</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Soumission du formulaire
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            if (!AuthManager.isLoggedIn()) {
+                showMessage('Veuillez vous connecter pour déposer une annonce', 'error');
+                window.location.href = 'seconnecter.html';
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const submitSpinner = document.getElementById('submitSpinner');
+
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
+
+            try {
+                // Préparer les données
+                const propertyData = {
+                    titre: document.getElementById('titre').value,
+                    description: document.getElementById('description').value,
+                    type_bien: document.getElementById('typeBien').value,
+                    statut_bien: document.getElementById('statutBien').value,
+                    prix: parseFloat(document.getElementById('prix').value),
+                    surface: parseFloat(document.getElementById('surface').value) || null,
+                    nombre_pieces: parseInt(document.getElementById('nombrePieces').value) || null,
+                    nombre_chambres: parseInt(document.getElementById('nombreChambres').value) || null,
+                    nombre_salles_bain: parseInt(document.getElementById('nombreSallesBain').value) || null,
+                    etage: parseInt(document.getElementById('etage').value) || null,
+                    adresse: document.getElementById('adresse').value,
+                    quartier: document.getElementById('quartier').value,
+                    commune: document.getElementById('commune').value,
+                    meuble: document.getElementById('meuble').checked,
+                    climatisation: document.getElementById('climatisation').checked,
+                    parking: document.getElementById('parking').checked,
+                    piscine: document.getElementById('piscine').checked,
+                    gardiennage: document.getElementById('gardiennage').checked,
+                    groupe_electrogene: document.getElementById('groupeElectrogene').checked,
+                    images: uploadedImages.map(img => img.id)
+                };
+
+                // Créer la propriété
+                const response = await api.createProperty(propertyData);
+                
+                // Uploader les images si présentes
+                if (uploadedImages.length > 0) {
+                    const files = uploadedImages.map(img => img.file);
+                    await api.uploadImages(files);
+                }
+
+                showMessage('Annonce publiée avec succès!', 'success');
+                
+                // Rediriger vers le tableau de bord après 2 secondes
+                setTimeout(() => {
+                    window.location.href = 'gestion.html';
+                }, 2000);
+
+            } catch (error) {
+                showMessage(error.message || 'Erreur lors de la publication de l\'annonce', 'error');
+                console.error('Submit error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitSpinner.classList.add('hidden');
+            }
+        }
+
+        function showMessage(message, type) {
+            const container = document.getElementById('messageContainer');
+            const alertClass = type === 'error' ? 'bg-red-50 border-red-200 text-red-700' : 'bg-green-50 border-green-200 text-green-700';
+            
+            container.innerHTML = `
+                <div class="${alertClass} px-6 py-4 rounded-xl border mb-4 shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined">${type === 'error' ? 'error' : 'check_circle'}</span>
+                        <span>${message}</span>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

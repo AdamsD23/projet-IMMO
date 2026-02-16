@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="assets/js/api.js"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --forest-green: #064E3B;
+            --vibrant-orange: #FF8A00;
+            --ivory-white: #FCFAF7;
+            --deep-black: #0A0F0C;
+        }
+        body { 
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--ivory-white);
+        }
+        .neo-card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(6, 78, 59, 0.12);
+        }
+        .material-symbols-outlined { 
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; 
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF8A00",
+                        "forest": "#064E3B",
+                        "accent": "#2bee79",
+                        "background": "#FCFAF7"
+                    },
+                    borderRadius: {
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Accueil Immo | Énergie Urbaine Abidjan</title>
+</head>
+<body class="text-forest selection:bg-primary/30">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-5">
+            <div class="flex items-center gap-3">
+                <div class="bg-forest text-primary p-2 rounded-xl rotate-3 shadow-lg">
+                    <span class="material-symbols-outlined text-3xl">domain</span>
+                </div>
+                <div class="flex flex-col -space-y-1">
+                    <span class="text-2xl font-black tracking-tighter uppercase italic">Accueil<span class="text-primary">Immo</span></span>
+                    <span class="text-[10px] font-bold tracking-[0.2em] text-forest/60 uppercase">Urban Energy</span>
+                </div>
+            </div>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a href="seconnecter.html" class="hidden sm:flex items-center gap-2 text-sm font-extrabold text-forest hover:text-primary transition-colors auth-login">
+                    <span class="material-symbols-outlined text-xl">account_circle</span>
+                    Se connecter
+                </a>
+                <div class="hidden auth-user">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-extrabold text-forest user-name"></span>
+                        <button class="logout-btn text-sm font-extrabold text-red-500 hover:text-red-600 transition-colors">
+                            <span class="material-symbols-outlined text-xl">logout</span>
+                        </button>
+                    </div>
+                </div>
+                <a href="deposeannonce.html" class="bg-primary text-white px-6 py-3 rounded-full text-sm font-black shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    DÉPOSER UNE ANNONCE
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Hero -->
+        <section class="max-w-[1400px] mx-auto px-8 py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 order-2 lg:order-1">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-forest/5 border border-forest/10 rounded-full">
+                    <span class="flex size-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="text-xs font-black uppercase tracking-widest text-forest">L'Immobilier Nouvelle Génération</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black text-forest leading-[1.1] tracking-tight">
+                    Vivez l'Énergie de <span class="text-primary italic">Abidjan.</span>
+                </h1>
+                <p class="text-lg text-forest/70 max-w-lg leading-relaxed font-medium">
+                    De la skyline du Plateau aux villas de luxe de Cocody, nous redéfinissons la gestion immobilière en Côte d'Ivoire avec une approche vibrante et contemporaine.
+                </p>
+                <div class="bg-white p-4 rounded-3xl shadow-2xl border border-forest/5 max-w-xl">
+                    <div class="flex flex-col gap-4">
+                        <div class="grid grid-cols-2 gap-2 bg-background p-1.5 rounded-2xl">
+                            <button onclick="searchProperties('location')" class="py-3 rounded-xl text-sm font-black bg-white shadow-sm text-forest uppercase">Location</button>
+                            <button onclick="searchProperties('vente')" class="py-3 rounded-xl text-sm font-bold text-forest/50 hover:text-forest uppercase">Achat</button>
+                        </div>
+                        <div class="flex items-center gap-3 px-4 py-3 bg-background rounded-2xl border border-transparent focus-within:border-primary/30 transition-all">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            <input id="searchInput" class="w-full bg-transparent border-none focus:ring-0 text-sm font-bold placeholder:text-forest/30" placeholder="Quartier : Riviera, Zone 4, Plateau..." type="text"/>
+                        </div>
+                        <button onclick="performSearch()" class="bg-forest text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-forest/90 transition-all">
+                            <span class="material-symbols-outlined">search</span>
+                            Trouver mon bien
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 relative">
+                <div class="grid grid-cols-12 gap-4 h-[500px] md:h-[600px]">
+                    <div class="col-span-8 rounded-3xl overflow-hidden shadow-2xl relative group">
+                        <img alt="Skyline Abidjan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4H_6wYecz1Fh7cwQgXIe-IPMxlstYOmFh2bE51-WfDGfjhAUjSpzGiU05YZJ8NZAVFsAo2VZLFej179upL4SWH-Gq42R7g4u_ZOQrXt-kBfsqPi7t42od9CvsRN8HjkzarLSEgcF3MPQHJLdo-I9E3vwJ9Nb7jS-hWM0-bCuMid11ESy-HFZaTOFuPJ74VszDfnqsSkm-cSOxTQHr3vHA4jbQCPYWVQRzbjWxBvKMznJMnFd-GJZWDrke3f6GjU1hkfpasYqnZfAm"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-forest/60 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 text-white">
+                            <p class="text-xs font-black tracking-widest uppercase mb-1">Cœur Urbain</p>
+                            <h3 class="text-xl font-bold">Le Plateau District</h3>
+                        </div>
+                    </div>
+                    <div class="col-span-4 flex flex-col gap-4">
+                        <div class="flex-1 rounded-3xl overflow-hidden shadow-xl border-4 border-white relative group">
+                            <img alt="Modern Apartment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNR8CmM2Z3muvts2G8pwgUNMgbj1wUBv-1d4-5fW2uASDDBNw0k5zymlUdl9v-GwbDE4uJHFjXizdTmoYHQarcB7pSZXl6qryEvCtEm37ZnVNzhvOpkiW3acAD9df8TG9qJ5HhCSCMBG9q4-KF3xM9z8NYFn2BzXpR5fMeOPLpl6A-jwGEXGNZ8h74aAE13Egd8YnQnQ3IjsGj-1Z_OocQX7JOXIku8Ia9uHMxONb1NxOxQYsiRZ7e3zJt2P7UDUgeIOpQ6rEmRwS"/>
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <div class="flex-1 rounded-3xl overflow-hidden shadow-xl bg-primary flex items-center justify-center p-6 text-center">
+                            <div class="text-white">
+                                <span class="text-4xl font-black block mb-2">+500</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest leading-tight opacity-90">Biens en gestion exclusive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-2xl flex items-center gap-4 border border-forest/5 animate-bounce-slow">
+                    <div class="bg-accent/20 p-3 rounded-2xl text-accent">
+                        <span class="material-symbols-outlined text-3xl">verified</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-black uppercase text-forest/40">Certifié par</p>
+                        <p class="text-sm font-extrabold text-forest">FNAIM Côte d'Ivoire</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Section Biens en Vedette -->
+        <section class="py-24 max-w-[1400px] mx-auto px-8">
+            <div class="flex items-center justify-between mb-16">
+                <div>
+                    <span class="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-2 block">Sélection Exclusive</span>
+                    <h2 class="text-4xl font-black text-forest">Biens en Vedette</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button class="size-14 rounded-full border-2 border-forest/10 flex items-center justify-center hover:bg-forest hover:text-white transition-all">
+                        <span class="material-symbols-outlined">west</span>
+                    </button>
+                    <button class="size-14 rounded-full bg-forest text-white flex items-center justify-center hover:bg-primary transition-all">
+                        <span class="material-symbols-outlined">east</span>
+                    </button>
+                </div>
+            </div>
+            <div id="featuredProperties" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Les biens seront chargés ici via l'API -->
+            </div>
+        </section>
+
+        <!-- Section Expertise -->
+        <section class="bg-forest py-24 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[120px] rounded-full -mr-48 -mt-48"></div>
+            <div class="max-w-[1400px] mx-auto px-8 relative z-10">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                    <div class="max-w-xl">
+                        <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Expertise Immobilière <span class="text-primary italic">Sans Compromis.</span></h2>
+                        <p class="text-white/60 font-medium">Une gestion rigoureuse alliée à une compréhension profonde des dynamiques urbaines de la Côte d'Ivoire.</p>
+                    </div>
+                    <button onclick="window.location.href='pagelocation.html'" class="group flex items-center gap-3 text-primary font-black uppercase tracking-widest text-sm">
+                        Découvrir nos offres <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+                        <div class="size-16 bg-primary rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-primary/20 -rotate-6 group-hover:rotate-0 transition-transform">
+                            <span class="material-symbols-outlined text-white text-3xl">real_estate_agent</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-4">Gestion Locative</h3>
+                        <p class="text-white/60 leading-relaxed text-sm">Optimisation de vos revenus fonciers et sélection rigoureuse des locataires avec garantie de loyers impayés.</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+                        <div class="size-16 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-lg rotate-3 group-hover:rotate-0 transition-transform">
+                            <span class="material-symbols-outlined text-forest text-3xl">apartment</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-4">Syndic de Copro</h3>
+                        <p class="text-white/60 leading-relaxed text-sm">Une gestion de proximité pour maintenir la valeur de vos immeubles et assurer une harmonie entre résidents.</p>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm p-10 rounded-[2.5rem] border border-white/10 hover:bg-white/10 transition-all group">
+                        <div class="size-16 bg-accent rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-accent/20 -rotate-3 group-hover:rotate-0 transition-transform">
+                            <span class="material-symbols-outlined text-forest text-3xl">balance</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-4">Conseil Juridique</h3>
+                        <p class="text-white/60 leading-relaxed text-sm">Accompagnement dans toutes vos démarches administratives, de l'ACD à la rédaction de baux complexes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white py-20">
+        <div class="max-w-[1400px] mx-auto px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
+                <div class="md:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-forest text-primary p-1.5 rounded-lg rotate-3 shadow-md">
+                            <span class="material-symbols-outlined text-2xl">domain</span>
+                        </div>
+                        <span class="text-xl font-black tracking-tighter uppercase italic text-forest">Accueil<span class="text-primary">Immo</span></span>
+                    </div>
+                    <p class="text-forest/60 font-medium max-w-sm leading-relaxed">
+                        Leader de la gestion immobilière digitale en Côte d'Ivoire. Nous transformons votre patrimoine en succès durable avec l'énergie urbaine d'Abidjan.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">share</span></a>
+                        <a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">mail</span></a>
+                        <a class="size-10 rounded-full bg-forest/5 flex items-center justify-center text-forest hover:bg-primary hover:text-white transition-all" href="#"><span class="material-symbols-outlined text-xl">phone_in_talk</span></a>
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Expertise</h4>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="vente.html">Vendre</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="pagelocation.html">Louer</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="gestion.html">Gérer</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Estimer</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Secteurs</h4>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Cocody</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Plateau</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Marcory</a></li>
+                        <li><a class="text-sm font-bold text-forest/50 hover:text-primary transition-colors" href="#">Assinie</a></li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3">
+                    <h4 class="text-forest font-black uppercase text-xs tracking-widest mb-6">Siège Social</h4>
+                    <div class="space-y-4">
+                        <p class="text-sm font-bold text-forest/70 leading-relaxed">
+                            Boulevard de Marseille, Zone 4C<br/>
+                            Immeuble Urban One, 4ème étage<br/>
+                            Abidjan, Côte d'Ivoire
+                        </p>
+                        <p class="text-sm font-black text-primary">+225 07 00 00 00 00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-forest/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-[10px] font-black uppercase tracking-widest text-forest/30">© 2026 Accueil Immo CI. Tous droits réservés.</p>
+                <div class="flex gap-8">
+                    <a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Mentions Légales</a>
+                    <a class="text-[10px] font-black uppercase tracking-widest text-forest/30 hover:text-primary" href="#">Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Charger les biens en vedette au chargement de la page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadFeaturedProperties();
+        });
+
+        // Fonction pour charger les biens en vedette
+        async function loadFeaturedProperties() {
+            const container = document.getElementById('featuredProperties');
+            UIHelper.showLoading(container);
+
+            try {
+                const response = await api.getFeaturedProperties(6);
+                const properties = response.data.properties;
+
+                if (properties && properties.length > 0) {
+                    container.innerHTML = properties.map(property => createPropertyCard(property)).join('');
+                } else {
+                    container.innerHTML = '<div class="col-span-full text-center py-12 text-forest/50">Aucun bien en vedette pour le moment</div>';
+                }
+            } catch (error) {
+                UIHelper.showError(container, 'Erreur lors du chargement des biens');
+                console.error('Error loading featured properties:', error);
+            }
+        }
+
+        // Fonction pour créer une carte de bien
+        function createPropertyCard(property) {
+            const images = property.images || [];
+            const firstImage = images.length > 0 ? `backend/uploads/properties/${images[0]}` : 'https://via.placeholder.com/400x300';
+            
+            return `
+                <div class="neo-card bg-white overflow-hidden group">
+                    <div class="relative h-72 overflow-hidden">
+                        <img alt="${property.titre}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${firstImage}"/>
+                        <div class="absolute top-6 left-6 flex flex-col gap-2">
+                            <span class="bg-forest text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">${property.type_bien}</span>
+                            ${property.featured ? '<span class="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Exclusivité</span>' : ''}
+                        </div>
+                        <button class="absolute top-6 right-6 size-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-white hover:text-red-500 transition-all">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-black text-forest mb-1 group-hover:text-primary transition-colors">${property.titre}</h3>
+                                <p class="text-sm font-bold text-forest/40 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-base">location_on</span> ${property.quartier || property.commune}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 py-6 border-y border-forest/5 mb-6">
+                            ${property.nombre_chambres ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Chambres</span>
+                                <span class="font-extrabold text-forest">${property.nombre_chambres}</span>
+                            </div>` : ''}
+                            ${property.nombre_salles_bain ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Bains</span>
+                                <span class="font-extrabold text-forest">${property.nombre_salles_bain}</span>
+                            </div>` : ''}
+                            ${property.surface ? `
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-forest/30 uppercase tracking-widest">Surface</span>
+                                <span class="font-extrabold text-forest">${property.surface}m²</span>
+                            </div>` : ''}
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-black text-primary uppercase tracking-widest">${property.statut_bien === 'location' ? 'Par mois' : 'Prix'}</span>
+                                <span class="text-2xl font-black text-forest italic">${UIHelper.formatPrice(property.prix)}</span>
+                            </div>
+                            <button onclick="viewProperty(${property.id})" class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                                <span class="material-symbols-outlined">arrow_outward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fonctions de recherche
+        function searchProperties(type) {
+            window.location.href = `pagelocation.html?type=${type}`;
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm.trim()) {
+                window.location.href = `pagelocation.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        // Fonction pour voir les détails d'un bien
+        function viewProperty(id) {
+            window.location.href = `pagelocation.html?id=${id}`;
+        }
+
+        // Gérer la touche Entrée dans la recherche
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>
