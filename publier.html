@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Publier une annonce | Accueil Immo</title>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-cream text-forest" data-no-assistant>
+<div id="site-header"></div>
+
+<main class="max-w-4xl mx-auto px-5 lg:px-8 pt-10">
+    <a href="espace.html" class="inline-flex items-center gap-1 font-bold text-forest/60 hover:text-primary"><span class="material-symbols-outlined">arrow_back</span>Mon espace</a>
+    <h1 id="title" class="mt-4 text-4xl font-extrabold">Publier une <span class="italic text-primary">annonce</span></h1>
+    <p class="mt-2 text-forest/60">Les champs marqués * sont obligatoires. Votre annonce est visible dès l'enregistrement.</p>
+
+    <form id="form" class="mt-8 space-y-6" novalidate>
+        <!-- 1. Le bien -->
+        <section class="bg-white rounded-4xl border border-forest/5 p-6 sm:p-8">
+            <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-primary text-white text-sm flex items-center justify-center">1</span>Le bien</h2>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                <div class="sm:col-span-2 grid grid-cols-2 gap-1 p-1 bg-sand rounded-full" role="group" aria-label="Location ou vente">
+                    <button type="button" data-statut="location" class="py-3 rounded-full font-extrabold">À louer</button>
+                    <button type="button" data-statut="vente" class="py-3 rounded-full font-extrabold">À vendre</button>
+                </div>
+                <label class="sm:col-span-2 block"><span class="block text-sm font-extrabold mb-1">Titre de l'annonce *</span>
+                    <input name="titre" required minlength="5" maxlength="150" placeholder="Ex : Appartement 3 pièces meublé à Cocody" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                <label class="block"><span class="block text-sm font-extrabold mb-1">Type de bien *</span>
+                    <select name="type_bien" required class="w-full px-5 py-3.5 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary"></select></label>
+                <label class="block"><span class="block text-sm font-extrabold mb-1"><span data-prix-label>Loyer mensuel</span> (FCFA) *</span>
+                    <input name="prix" type="number" required min="1000" step="1000" inputmode="numeric" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                <label class="block"><span class="block text-sm font-extrabold mb-1">Commune *</span>
+                    <select name="commune" required class="w-full px-5 py-3.5 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary"></select></label>
+                <label class="block"><span class="block text-sm font-extrabold mb-1">Quartier</span>
+                    <input name="quartier" maxlength="100" placeholder="Ex : Riviera Palmeraie" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                <label class="block"><span class="block text-sm font-extrabold mb-1">Surface (m²)</span>
+                    <input name="surface" type="number" min="1" inputmode="numeric" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="block"><span class="block text-sm font-extrabold mb-1">Chambres</span>
+                        <input name="chambres" type="number" min="0" max="50" inputmode="numeric" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                    <label class="block"><span class="block text-sm font-extrabold mb-1">Salles de bain</span>
+                        <input name="salles_bain" type="number" min="0" max="50" inputmode="numeric" class="w-full px-5 py-3.5 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                </div>
+                <label class="sm:col-span-2 block"><span class="block text-sm font-extrabold mb-1">Description</span>
+                    <textarea name="description" rows="5" maxlength="3000" placeholder="Atouts du bien, état, environnement, conditions (caution, avance)…" class="w-full px-5 py-4 rounded-3xl bg-cream outline-none focus:ring-2 focus:ring-primary resize-y"></textarea></label>
+            </div>
+        </section>
+
+        <!-- 2. Équipements -->
+        <section class="bg-white rounded-4xl border border-forest/5 p-6 sm:p-8">
+            <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-primary text-white text-sm flex items-center justify-center">2</span>Équipements</h2>
+            <div id="equipements" class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+        </section>
+
+        <!-- 3. Photos -->
+        <section class="bg-white rounded-4xl border border-forest/5 p-6 sm:p-8">
+            <h2 class="text-xl font-extrabold flex items-center gap-2"><span class="w-8 h-8 rounded-full bg-primary text-white text-sm flex items-center justify-center">3</span>Photos</h2>
+            <p class="mt-2 text-sm text-forest/60">Jusqu'à 6 photos (JPG, PNG ou WebP, 2 Mo maximum chacune). La première est la photo principale.</p>
+            <div id="photos" class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+            <input id="file" type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden">
+        </section>
+
+        <p id="error" class="hidden px-5 py-4 rounded-3xl bg-red-50 text-red-700 font-bold"></p>
+        <div class="flex flex-wrap justify-end gap-3">
+            <a href="espace.html" class="px-7 py-4 rounded-full font-extrabold hover:bg-sand">Annuler</a>
+            <button type="submit" class="px-8 py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-extrabold shadow-lg shadow-primary/30 transition disabled:opacity-60">Publier l'annonce</button>
+        </div>
+    </form>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js"></script>
+<script>
+    const form = document.getElementById('form');
+    const editId = Number(Immo.params().get('id')) || null;
+    let statut = 'location';
+    let photos = [];   // [{ id, url }]
+    let uploading = 0;
+
+    form.type_bien.innerHTML = Object.entries(Immo.TYPES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    form.commune.innerHTML = Object.entries(Immo.COMMUNES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    document.getElementById('equipements').innerHTML = Object.entries(Immo.EQUIPEMENTS).map(([k, [label, icon]]) => `
+        <label class="flex items-center gap-3 px-4 py-3.5 rounded-3xl border border-forest/10 cursor-pointer has-[:checked]:border-forest has-[:checked]:bg-forest has-[:checked]:text-white transition">
+            <input type="checkbox" name="${k}" class="sr-only"><span class="material-symbols-outlined">${icon}</span><span class="font-bold">${label}</span></label>`).join('');
+
+    function setStatut(value) {
+        statut = value;
+        form.querySelectorAll('[data-statut]').forEach(b => { b.className = `py-3 rounded-full font-extrabold ${b.dataset.statut === value ? 'bg-forest text-white' : 'text-forest/60'}`; });
+        form.querySelector('[data-prix-label]').textContent = value === 'vente' ? 'Prix de vente' : 'Loyer mensuel';
+    }
+    form.querySelectorAll('[data-statut]').forEach(b => b.addEventListener('click', () => setStatut(b.dataset.statut)));
+
+    function renderPhotos() {
+        document.getElementById('photos').innerHTML = photos.map((p, i) => `
+            <div class="relative aspect-[4/3] rounded-3xl overflow-hidden bg-sand group">
+                <img src="${Immo.esc(p.url)}" alt="Photo ${i + 1}" class="w-full h-full object-cover">
+                ${i === 0 ? '<span class="absolute top-2 left-2 px-2 py-1 rounded-full bg-primary text-white text-xs font-extrabold">Principale</span>' : `<button type="button" data-main="${i}" class="absolute top-2 left-2 px-2 py-1 rounded-full bg-white/90 text-xs font-extrabold">Mettre en premier</button>`}
+                <button type="button" data-remove="${i}" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:text-red-600" aria-label="Retirer la photo"><span class="material-symbols-outlined text-[20px]">close</span></button>
+            </div>`).join('') + (uploading ? Array.from({ length: uploading }, () => '<div class="skeleton aspect-[4/3] rounded-3xl"></div>').join('') : '')
+            + (photos.length + uploading < 6 ? `<button type="button" id="add-photo" class="aspect-[4/3] rounded-3xl border-2 border-dashed border-forest/20 hover:border-primary flex flex-col items-center justify-center gap-1 font-bold text-forest/60">
+                <span class="material-symbols-outlined text-3xl">add_a_photo</span>Ajouter des photos</button>` : '');
+    }
+
+    document.getElementById('photos').addEventListener('click', e => {
+        if (e.target.closest('#add-photo')) document.getElementById('file').click();
+        const remove = e.target.closest('[data-remove]');
+        if (remove) { photos.splice(Number(remove.dataset.remove), 1); renderPhotos(); }
+        const main = e.target.closest('[data-main]');
+        if (main) { const [p] = photos.splice(Number(main.dataset.main), 1); photos.unshift(p); renderPhotos(); }
+    });
+
+    document.getElementById('file').addEventListener('change', async e => {
+        const files = [...e.target.files].slice(0, 6 - photos.length);
+        e.target.value = '';
+        for (const file of files) {
+            if (file.size > 2 * 1024 * 1024) { Immo.toast(`« ${file.name} » dépasse 2 Mo`, 'error'); continue; }
+            uploading++; renderPhotos();
+            try {
+                const data = new FormData();
+                data.append('image', file);
+                photos.push(await Immo.api('images', { method: 'POST', form: data }));
+            } catch (error) {
+                Immo.toast(error.message, 'error');
+            } finally {
+                uploading--; renderPhotos();
+            }
+        }
+    });
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const errorBox = document.getElementById('error');
+        errorBox.classList.add('hidden');
+        if (uploading) return Immo.toast('Patientez, les photos sont en cours d\'envoi', 'error');
+
+        const body = { statut_bien: statut, image_ids: photos.map(p => p.id) };
+        ['titre', 'type_bien', 'prix', 'commune', 'quartier', 'surface', 'chambres', 'salles_bain', 'description'].forEach(k => { body[k] = form[k].value.trim() || null; });
+        Object.keys(Immo.EQUIPEMENTS).forEach(k => { body[k] = form[k].checked; });
+
+        const button = form.querySelector('[type="submit"]');
+        button.disabled = true;
+        try {
+            const saved = await Immo.api(editId ? `properties/${editId}` : 'properties', { method: editId ? 'PUT' : 'POST', body });
+            location.href = `annonce.html?id=${saved.id}`;
+        } catch (error) {
+            errorBox.textContent = error.message;
+            errorBox.classList.remove('hidden');
+            errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            button.disabled = false;
+        }
+    });
+
+    (async () => {
+        const user = await Immo.requireAuth();
+        if (user.type_utilisateur === 'locataire') {
+            document.querySelector('main').innerHTML = `<div class="text-center py-24"><span class="material-symbols-outlined text-6xl text-forest/30">lock</span>
+                <h1 class="mt-4 text-3xl font-extrabold">Réservé aux propriétaires et agents</h1>
+                <p class="mt-2 text-forest/60">Votre compte est un compte locataire. Créez un compte propriétaire pour publier un bien.</p>
+                <a href="annonces.html" class="inline-block mt-6 px-6 py-3 rounded-full bg-primary text-white font-extrabold">Voir les annonces</a></div>`;
+            return;
+        }
+        setStatut('location');
+        if (editId) {
+            document.getElementById('title').innerHTML = 'Modifier l\'<span class="italic text-primary">annonce</span>';
+            form.querySelector('[type="submit"]').textContent = 'Enregistrer les modifications';
+            try {
+                const p = await Immo.api(`properties/${editId}`);
+                ['titre', 'type_bien', 'prix', 'commune', 'quartier', 'surface', 'chambres', 'salles_bain', 'description'].forEach(k => { form[k].value = p[k] ?? ''; });
+                Object.keys(Immo.EQUIPEMENTS).forEach(k => { form[k].checked = !!p[k]; });
+                setStatut(p.statut_bien);
+                photos = p.images;
+            } catch (error) {
+                Immo.toast(error.message, 'error');
+            }
+        }
+        renderPhotos();
+    })();
+</script>
+</body>
+</html>

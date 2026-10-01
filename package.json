@@ -1,18 +1,16 @@
 {
-  "name": "prodesticprojet",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "accueil-immo",
+  "version": "2.0.0",
+  "description": "Plateforme immobilière (location, vente, conciergerie) à Abidjan — PHP, MySQL et JavaScript",
+  "private": true,
+  "author": "Adams Diarra",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "php -S localhost:8000 router.php",
+    "setup": "php api/setup.php",
+    "test": "node --test tests/api.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "autoprefixer": "^10.4.24",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18"
+  "engines": {
+    "node": ">=18"
   }
 }

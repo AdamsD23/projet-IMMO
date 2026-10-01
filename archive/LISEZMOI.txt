@@ -1,0 +1,1 @@
+﻿Ancienne version (maquettes et backend PHP v1) conservée pour référence. Elle n'est plus utilisée : le site est à la racine et l'API dans api/.

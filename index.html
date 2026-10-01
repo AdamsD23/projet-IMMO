@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accueil Immo | Location et vente de biens à Abidjan</title>
+    <meta name="description" content="Villas, appartements, studios et terrains à louer ou à vendre à Abidjan, Assinie et Bingerville. Publiez votre annonce gratuitement.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-cream text-forest" data-page="accueil">
+<div id="site-header"></div>
+
+<main>
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-5 lg:px-8 pt-12 lg:pt-20 grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-forest/10 text-xs font-extrabold tracking-widest uppercase"><span class="w-2 h-2 rounded-full bg-primary"></span>L'immobilier nouvelle génération</span>
+            <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.02] tracking-tight">Vivez l'Énergie<br>d'<span class="italic text-primary">Abidjan.</span></h1>
+            <p class="mt-6 text-lg text-forest/70 max-w-xl">Du Plateau aux villas de Cocody et d'Assinie, trouvez le bien qui vous ressemble, ou confiez-nous le vôtre.</p>
+
+            <!-- Recherche -->
+            <form id="search" class="mt-8 bg-white rounded-4xl shadow-xl shadow-forest/5 p-3 sm:p-4 border border-forest/5 max-w-xl">
+                <div class="grid grid-cols-2 gap-2 p-1 bg-sand rounded-3xl" role="tablist">
+                    <button type="button" data-statut="location" class="py-3 rounded-2xl font-extrabold uppercase tracking-wider text-sm bg-white shadow">Louer</button>
+                    <button type="button" data-statut="vente" class="py-3 rounded-2xl font-extrabold uppercase tracking-wider text-sm text-forest/50">Acheter</button>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-2 mt-3">
+                    <label class="flex items-center gap-2 px-4 py-3 rounded-3xl bg-cream">
+                        <span class="material-symbols-outlined text-primary">location_on</span>
+                        <select name="commune" class="w-full bg-transparent font-semibold outline-none" aria-label="Commune"><option value="">Toutes les communes</option></select>
+                    </label>
+                    <label class="flex items-center gap-2 px-4 py-3 rounded-3xl bg-cream">
+                        <span class="material-symbols-outlined text-primary">home_work</span>
+                        <select name="type" class="w-full bg-transparent font-semibold outline-none" aria-label="Type de bien"><option value="">Tous les types</option></select>
+                    </label>
+                </div>
+                <button type="submit" class="mt-3 w-full py-4 rounded-3xl bg-forest hover:bg-forest-light text-white font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 transition">
+                    <span class="material-symbols-outlined">search</span>Trouver mon bien
+                </button>
+            </form>
+        </div>
+
+        <div class="relative grid grid-cols-5 gap-4 h-[460px] lg:h-[560px]">
+            <div class="col-span-3 relative rounded-4xl overflow-hidden shadow-2xl">
+                <img src="assets/img/abidjan-skyline.jpg" alt="Vue sur les tours du Plateau, à Abidjan" class="w-full h-full object-cover">
+                <div class="absolute left-4 right-4 bottom-4 sm:left-auto sm:-left-6 bg-white rounded-3xl shadow-xl p-4 flex items-center gap-3 max-w-[260px]">
+                    <span class="w-12 h-12 rounded-2xl bg-accent/20 text-forest flex items-center justify-center"><span class="material-symbols-outlined">verified</span></span>
+                    <div><p class="text-xs font-bold text-forest/50 uppercase">Annonces vérifiées</p><p class="font-extrabold">Contact direct propriétaire</p></div>
+                </div>
+            </div>
+            <div class="col-span-2 grid grid-rows-2 gap-4">
+                <div class="rounded-4xl overflow-hidden shadow-xl"><img src="assets/img/appartement-salon.jpg" alt="Salon d'un appartement meublé" class="w-full h-full object-cover"></div>
+                <div class="rounded-4xl bg-primary text-white p-6 flex flex-col justify-center text-center shadow-xl shadow-primary/30">
+                    <p class="text-4xl lg:text-5xl font-extrabold" id="count-biens">—</p>
+                    <p class="mt-2 text-xs font-extrabold uppercase tracking-widest">biens disponibles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biens en vedette -->
+    <section class="max-w-7xl mx-auto px-5 lg:px-8 mt-24">
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+                <p class="font-extrabold uppercase tracking-widest text-primary text-sm">Sélection</p>
+                <h2 class="text-4xl font-extrabold mt-2">Nos coups de cœur</h2>
+            </div>
+            <a href="annonces.html" class="inline-flex items-center gap-1 font-extrabold hover:text-primary">Toutes les annonces<span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        <div id="featured" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- Communes -->
+    <section class="max-w-7xl mx-auto px-5 lg:px-8 mt-24">
+        <p class="font-extrabold uppercase tracking-widest text-primary text-sm">Explorer</p>
+        <h2 class="text-4xl font-extrabold mt-2 mb-10">Par quartier</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="annonces.html?commune=cocody" class="group relative h-48 rounded-4xl overflow-hidden"><img src="assets/img/villa-moderne.jpg" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute inset-0 bg-gradient-to-t from-forest/80 to-transparent"></span><span class="absolute bottom-5 left-5 text-white text-xl font-extrabold">Cocody</span></a>
+            <a href="annonces.html?commune=plateau" class="group relative h-48 rounded-4xl overflow-hidden"><img src="assets/img/abidjan-skyline.jpg" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute inset-0 bg-gradient-to-t from-forest/80 to-transparent"></span><span class="absolute bottom-5 left-5 text-white text-xl font-extrabold">Plateau</span></a>
+            <a href="annonces.html?commune=riviera" class="group relative h-48 rounded-4xl overflow-hidden"><img src="assets/img/villa-piscine.jpg" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute inset-0 bg-gradient-to-t from-forest/80 to-transparent"></span><span class="absolute bottom-5 left-5 text-white text-xl font-extrabold">Riviera</span></a>
+            <a href="annonces.html?commune=assinie" class="group relative h-48 rounded-4xl overflow-hidden"><img src="assets/img/villa-paillote.jpg" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute inset-0 bg-gradient-to-t from-forest/80 to-transparent"></span><span class="absolute bottom-5 left-5 text-white text-xl font-extrabold">Assinie</span></a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="max-w-7xl mx-auto px-5 lg:px-8 mt-24">
+        <div class="rounded-[2.5rem] bg-forest text-white p-8 sm:p-14 grid lg:grid-cols-3 gap-10 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-primary/20 blur-3xl"></div>
+            <div class="relative">
+                <p class="font-extrabold uppercase tracking-widest text-primary text-sm">Propriétaires</p>
+                <h2 class="text-4xl font-extrabold mt-2">Louez ou vendez plus vite.</h2>
+                <p class="mt-4 text-white/70">Publiez gratuitement, recevez les demandes de visite dans votre espace et suivez les vues de vos annonces.</p>
+                <a href="publier.html" class="inline-flex items-center gap-2 mt-8 px-6 py-4 rounded-full bg-primary hover:bg-primary-dark font-extrabold">Publier mon bien<span class="material-symbols-outlined">arrow_forward</span></a>
+            </div>
+            <div class="relative lg:col-span-2 grid sm:grid-cols-2 gap-4">
+                <div class="rounded-3xl bg-white/5 border border-white/10 p-6"><span class="material-symbols-outlined text-primary text-3xl">photo_camera</span><h3 class="mt-3 text-lg font-extrabold">Annonce avec photos</h3><p class="text-white/60 mt-1">Jusqu'à 6 photos, prix, équipements et quartier.</p></div>
+                <div class="rounded-3xl bg-white/5 border border-white/10 p-6"><span class="material-symbols-outlined text-primary text-3xl">event_available</span><h3 class="mt-3 text-lg font-extrabold">Demandes de visite</h3><p class="text-white/60 mt-1">Les visiteurs vous contactent depuis l'annonce.</p></div>
+                <div class="rounded-3xl bg-white/5 border border-white/10 p-6"><span class="material-symbols-outlined text-primary text-3xl">monitoring</span><h3 class="mt-3 text-lg font-extrabold">Statistiques</h3><p class="text-white/60 mt-1">Nombre de vues et de demandes par annonce.</p></div>
+                <a href="conciergerie.html" class="rounded-3xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition"><span class="material-symbols-outlined text-primary text-3xl">room_service</span><h3 class="mt-3 text-lg font-extrabold">Conciergerie</h3><p class="text-white/60 mt-1">Ménage, gestion locative, transferts…</p></a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js"></script>
+<script>
+    (async () => {
+        const form = document.getElementById('search');
+        let statut = 'location';
+
+        form.querySelectorAll('[data-statut]').forEach(btn => btn.addEventListener('click', () => {
+            statut = btn.dataset.statut;
+            form.querySelectorAll('[data-statut]').forEach(b => {
+                b.className = `py-3 rounded-2xl font-extrabold uppercase tracking-wider text-sm ${b === btn ? 'bg-white shadow' : 'text-forest/50'}`;
+            });
+        }));
+
+        form.commune.innerHTML += Object.entries(Immo.COMMUNES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+        form.type.innerHTML += Object.entries(Immo.TYPES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const p = new URLSearchParams({ statut });
+            if (form.commune.value) p.set('commune', form.commune.value);
+            if (form.type.value) p.set('type', form.type.value);
+            location.href = `annonces.html?${p}`;
+        });
+
+        const featured = document.getElementById('featured');
+        featured.innerHTML = Immo.skeletonCards(3);
+        try {
+            const [items, all] = await Promise.all([Immo.api('properties/featured?limit=6'), Immo.api('properties?par_page=1')]);
+            featured.innerHTML = items.map(Immo.card).join('') || '<p class="text-forest/60">Aucune annonce pour le moment.</p>';
+            document.getElementById('count-biens').textContent = all.total;
+        } catch (error) {
+            featured.innerHTML = `<p class="text-red-700">${Immo.esc(error.message)}</p>`;
+        }
+    })();
+</script>
+</body>
+</html>

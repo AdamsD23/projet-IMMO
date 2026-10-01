@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="assets/js/api.js"></script>
+    <script src="assets/js/chatbot.js"></script>
     <style type="text/tailwindcss">
         :root {
             --forest-green: #064E3B;
@@ -50,7 +51,7 @@
             }
         }
     </script>
-    <title>Ventes | Accueil Immo CI</title>
+    <title>Locations | Accueil Immo CI</title>
 </head>
 <body class="text-forest selection:bg-primary/30">
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-forest/5">
@@ -65,8 +66,8 @@
                 </div>
             </div>
             <nav class="hidden lg:flex items-center gap-10">
-                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
-                <a class="text-sm font-bold text-primary hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold text-primary hover:text-primary transition-colors flex items-center gap-1" href="pagelocation.html">Location <span class="size-1.5 rounded-full bg-primary/40"></span></a>
+                <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="vente.html">Vente <span class="size-1.5 rounded-full bg-primary/40"></span></a>
                 <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="gestion.html">Gestion <span class="size-1.5 rounded-full bg-primary/40"></span></a>
                 <a class="text-sm font-bold hover:text-primary transition-colors flex items-center gap-1" href="conciergerie.html">Conciergerie <span class="size-1.5 rounded-full bg-primary/40"></span></a>
             </nav>
@@ -91,39 +92,11 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-forest to-primary py-20">
-            <div class="max-w-[1400px] mx-auto px-8 text-center">
-                <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                    Trouvez la Propriété de <span class="italic">Vos Rêves</span>
-                </h1>
-                <p class="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-                    Découvrez notre sélection exclusive de biens à vendre à Abidjan et dans les meilleures zones de Côte d'Ivoire
-                </p>
-                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl max-w-2xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="text-center">
-                            <div class="text-4xl font-black text-white mb-2">150+</div>
-                            <div class="text-sm font-bold text-white/80">Biens à vendre</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl font-black text-white mb-2">25M+</div>
-                            <div class="text-sm font-bold text-white/80">Valeur totale (XOF)</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-4xl font-black text-white mb-2">98%</div>
-                            <div class="text-sm font-bold text-white/80">Satisfaction clients</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Section Filtres -->
         <section class="bg-forest py-12">
             <div class="max-w-[1400px] mx-auto px-8">
                 <div class="bg-white rounded-3xl shadow-2xl p-8">
-                    <h2 class="text-2xl font-black text-forest mb-6">Rechercher un bien à vendre</h2>
+                    <h2 class="text-2xl font-black text-forest mb-6">Trouver votre location idéale</h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                         <!-- Type de bien -->
@@ -135,7 +108,6 @@
                                 <option value="villa">Villa</option>
                                 <option value="studio">Studio</option>
                                 <option value="duplex">Duplex</option>
-                                <option value="terrain">Terrain</option>
                             </select>
                         </div>
 
@@ -150,19 +122,48 @@
                                 <option value="riviera">Riviera</option>
                                 <option value="bingerville">Bingerville</option>
                                 <option value="assinie">Assinie</option>
+                                <option value="yopougon">Yopougon</option>
+                                <option value="treichville">Treichville</option>
                             </select>
                         </div>
 
                         <!-- Prix min -->
                         <div class="space-y-2">
                             <label class="text-sm font-black text-forest/70">Prix minimum</label>
-                            <input type="number" id="prixMin" placeholder="5 000 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            <input type="number" id="prixMin" placeholder="50 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
                         </div>
 
                         <!-- Prix max -->
                         <div class="space-y-2">
                             <label class="text-sm font-black text-forest/70">Prix maximum</label>
-                            <input type="number" id="prixMax" placeholder="50 000 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                            <input type="number" id="prixMax" placeholder="500 000 XOF" class="w-full px-4 py-3 border border-forest/20 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Équipements -->
+                    <div class="mb-6">
+                        <label class="text-sm font-black text-forest/70 mb-3 block">Équipements</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="meuble" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Meublé</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="climatisation" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Climatisation</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="parking" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Parking</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="piscine" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Piscine</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="gardiennage" class="w-4 h-4 text-primary border-forest/20 rounded focus:ring-primary">
+                                <span class="text-sm font-medium">Gardiennage</span>
+                            </label>
                         </div>
                     </div>
 
@@ -184,7 +185,7 @@
         <section class="py-12 max-w-[1400px] mx-auto px-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
-                    <h2 class="text-3xl font-black text-forest">Biens à vendre</h2>
+                    <h2 class="text-3xl font-black text-forest">Biens disponibles</h2>
                     <p class="text-forest/60 mt-1">
                         <span id="resultCount">0</span> biens trouvés
                     </p>
@@ -222,22 +223,6 @@
                     <span class="material-symbols-outlined text-6xl mb-4 block">search_off</span>
                     <h3 class="text-xl font-black mb-2">Aucun bien trouvé</h3>
                     <p>Essayez de modifier vos filtres de recherche</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Estimation -->
-        <section class="bg-primary py-20">
-            <div class="max-w-[1400px] mx-auto px-8 text-center">
-                <div class="bg-white rounded-3xl shadow-2xl p-12">
-                    <h2 class="text-3xl font-black text-forest mb-4">Estimation Gratuite</h2>
-                    <p class="text-forest/60 mb-8 max-w-2xl mx-auto">
-                        Obtenez une estimation professionnelle de votre bien en moins de 24h
-                    </p>
-                    <button onclick="window.location.href='#estimation'" class="bg-forest text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-forest/90 transition-all">
-                        <span class="material-symbols-outlined mr-2">analytics</span>
-                        Estimer mon bien
-                    </button>
                 </div>
             </div>
         </section>
@@ -301,7 +286,7 @@
             await loadProperties();
         });
 
-        // Fonction pour charger les propriétés à vendre
+        // Fonction pour charger les propriétés
         async function loadProperties(page = 1) {
             const loadingState = document.getElementById('loadingState');
             const propertiesGrid = document.getElementById('propertiesGrid');
@@ -315,7 +300,7 @@
                 const filters = getFilters();
                 const response = await api.getProperties({
                     ...filters,
-                    statut_bien: 'vente',
+                    statut_bien: 'location',
                     page: page,
                     per_page: 12
                 });
@@ -354,7 +339,7 @@
                         <img alt="${property.titre}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="${firstImage}"/>
                         <div class="absolute top-6 left-6 flex flex-col gap-2">
                             <span class="bg-forest text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">${property.type_bien}</span>
-                            ${property.featured ? '<span class="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Exclusivité</span>' : ''}
+                            ${property.statut_occupation === 'vacant' ? '<span class="bg-accent text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest">Disponible</span>' : ''}
                         </div>
                         <button onclick="event.stopPropagation(); toggleFavorite(${property.id})" class="absolute top-6 right-6 size-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-white hover:text-red-500 transition-all">
                             <span class="material-symbols-outlined">favorite</span>
@@ -388,7 +373,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="flex flex-col">
-                                <span class="text-[10px] font-black text-primary uppercase tracking-widest">Prix</span>
+                                <span class="text-[10px] font-black text-primary uppercase tracking-widest">Par mois</span>
                                 <span class="text-2xl font-black text-forest italic">${UIHelper.formatPrice(property.prix)}</span>
                             </div>
                             <button class="bg-forest/5 text-forest size-12 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all">
@@ -408,6 +393,13 @@
                 prix_min: document.getElementById('prixMin').value,
                 prix_max: document.getElementById('prixMax').value
             };
+
+            // Ajouter les équipements
+            if (document.getElementById('meuble').checked) filters.meuble = true;
+            if (document.getElementById('climatisation').checked) filters.climatisation = true;
+            if (document.getElementById('parking').checked) filters.parking = true;
+            if (document.getElementById('piscine').checked) filters.piscine = true;
+            if (document.getElementById('gardiennage').checked) filters.gardiennage = true;
 
             // Supprimer les valeurs vides
             Object.keys(filters).forEach(key => {
@@ -430,6 +422,11 @@
             document.getElementById('commune').value = '';
             document.getElementById('prixMin').value = '';
             document.getElementById('prixMax').value = '';
+            document.getElementById('meuble').checked = false;
+            document.getElementById('climatisation').checked = false;
+            document.getElementById('parking').checked = false;
+            document.getElementById('piscine').checked = false;
+            document.getElementById('gardiennage').checked = false;
             document.getElementById('sortBy').value = 'created_at';
             
             currentFilters = {};
@@ -483,10 +480,11 @@
 
         // Fonctions utilitaires
         function viewProperty(id) {
-            window.location.href = `vente.html?id=${id}`;
+            window.location.href = `pagelocation.html?id=${id}`;
         }
 
         function toggleFavorite(id) {
+            // Implémenter la gestion des favoris
             console.log('Toggle favorite for property:', id);
         }
     </script>

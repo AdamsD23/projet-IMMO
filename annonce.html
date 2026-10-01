@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Annonce | Accueil Immo</title>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-cream text-forest">
+<div id="site-header"></div>
+
+<main id="content" class="max-w-7xl mx-auto px-5 lg:px-8 pt-8">
+    <div class="skeleton h-8 w-64 rounded-full"></div>
+    <div class="skeleton h-[420px] rounded-4xl mt-6"></div>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js"></script>
+<script>
+    const id = Number(Immo.params().get('id'));
+    const main = document.getElementById('content');
+
+    function gallery(images, title) {
+        const imgs = images.length ? images : [{ url: 'assets/img/abidjan-skyline.jpg' }];
+        return `<div class="grid gap-3 ${imgs.length > 1 ? 'lg:grid-cols-[2fr_1fr]' : ''}">
+            <button type="button" data-zoom="0" class="relative rounded-4xl overflow-hidden aspect-[16/10] lg:aspect-auto lg:h-[480px] bg-sand">
+                <img id="main-img" src="${Immo.esc(imgs[0].url)}" alt="${Immo.esc(title)}" class="w-full h-full object-cover">
+                <span class="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-white/90 text-sm font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">photo_library</span>${imgs.length} photo${imgs.length > 1 ? 's' : ''}</span>
+            </button>
+            ${imgs.length > 1 ? `<div class="grid grid-cols-4 lg:grid-cols-1 ${imgs.length > 2 ? 'lg:grid-rows-2' : 'lg:grid-rows-1'} gap-3 lg:h-[480px]">
+                ${imgs.slice(1, 3).map((img, i) => `<button type="button" data-zoom="${i + 1}" class="rounded-3xl overflow-hidden bg-sand aspect-square lg:aspect-auto"><img src="${Immo.esc(img.url)}" alt="" class="w-full h-full object-cover hover:scale-105 transition duration-500"></button>`).join('')}
+            </div>` : ''}
+        </div>`;
+    }
+
+    function render(p) {
+        document.title = `${p.titre} | Accueil Immo`;
+        const contact = p.contact || {};
+        const facts = [
+            ['home_work', 'Type', Immo.TYPES[p.type_bien]],
+            ['square_foot', 'Surface', p.surface ? `${Immo.number(p.surface)} m²` : null],
+            ['bed', 'Chambres', p.chambres],
+            ['bathtub', 'Salles de bain', p.salles_bain],
+            ['visibility', 'Vues', p.vues]
+        ].filter(f => f[2] !== null && f[2] !== undefined);
+        const whatsappText = `Bonjour, je suis intéressé(e) par votre annonce « ${p.titre} » sur Accueil Immo (${location.href}).`;
+        const phone = (contact.telephone || '').replace(/[^\d+]/g, '');
+        const waOwner = phone ? `https://wa.me/${phone.replace(/^\+/, '').replace(/^0/, '225')}?text=${encodeURIComponent(whatsappText)}` : Immo.waLink(whatsappText);
+
+        main.innerHTML = `
+            <nav class="text-sm font-bold text-forest/50" aria-label="Fil d'Ariane">
+                <a href="index.html" class="hover:text-primary">Accueil</a> /
+                <a href="annonces.html?statut=${p.statut_bien}" class="hover:text-primary">${p.statut_bien === 'vente' ? 'Acheter' : 'Louer'}</a> /
+                <span class="text-forest">${Immo.esc(Immo.COMMUNES[p.commune])}</span>
+            </nav>
+            ${!p.active ? '<p class="mt-4 px-4 py-3 rounded-2xl bg-amber-50 text-amber-800 font-bold">Cette annonce est masquée : seuls vous et l\'administrateur pouvez la voir.</p>' : ''}
+            <div class="mt-6">${gallery(p.images, p.titre)}</div>
+
+            <div class="mt-10 grid lg:grid-cols-[1fr_380px] gap-10 items-start">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${p.statut_bien === 'vente' ? 'bg-primary text-white' : 'bg-forest text-white'}">${p.statut_bien === 'vente' ? 'À vendre' : 'À louer'}</span>
+                        <span class="text-sm font-bold text-forest/50">Publiée ${Immo.timeAgo(p.created_at)}</span>
+                    </div>
+                    <h1 class="mt-3 text-3xl sm:text-4xl font-extrabold leading-tight">${Immo.esc(p.titre)}</h1>
+                    <p class="mt-2 flex items-center gap-1 text-lg text-forest/60"><span class="material-symbols-outlined">location_on</span>${Immo.esc(Immo.COMMUNES[p.commune])}${p.quartier ? ' · ' + Immo.esc(p.quartier) : ''}</p>
+                    <p class="mt-6 text-4xl font-extrabold text-primary">${Immo.price(p)}</p>
+
+                    <div class="mt-8 grid grid-cols-2 sm:grid-cols-${Math.min(facts.length, 5)} gap-3">
+                        ${facts.map(([icon, label, value]) => `<div class="rounded-3xl bg-white border border-forest/5 p-4">
+                            <span class="material-symbols-outlined text-primary">${icon}</span>
+                            <p class="mt-2 text-xs font-extrabold uppercase tracking-wider text-forest/50">${label}</p>
+                            <p class="text-lg font-extrabold">${Immo.esc(value)}</p></div>`).join('')}
+                    </div>
+
+                    <h2 class="mt-10 text-2xl font-extrabold">Description</h2>
+                    <p class="mt-3 text-forest/80 leading-relaxed whitespace-pre-line">${Immo.esc(p.description || 'Aucune description.')}</p>
+
+                    ${p.equipements.length ? `<h2 class="mt-10 text-2xl font-extrabold">Équipements</h2>
+                    <div class="mt-4 flex flex-wrap gap-2">${p.equipements.map(e => `<span class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-forest/10 font-bold"><span class="material-symbols-outlined text-primary">${Immo.EQUIPEMENTS[e][1]}</span>${Immo.EQUIPEMENTS[e][0]}</span>`).join('')}</div>` : ''}
+                </div>
+
+                <!-- Contact -->
+                <aside class="lg:sticky lg:top-28 bg-white rounded-4xl shadow-xl shadow-forest/5 border border-forest/5 p-6">
+                    <div class="flex items-center gap-3">
+                        <span class="w-12 h-12 rounded-2xl bg-forest text-white flex items-center justify-center"><span class="material-symbols-outlined">person</span></span>
+                        <div><p class="font-extrabold">${Immo.esc(contact.nom || 'Accueil Immo')}</p><p class="text-sm text-forest/60">${Immo.esc(Immo.PROFILS[contact.type] || 'Conseiller')}</p></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-5">
+                        <a href="${waOwner}" target="_blank" rel="noopener" class="py-3 rounded-full bg-[#25D366] text-white font-extrabold flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[20px]">chat</span>WhatsApp</a>
+                        ${phone ? `<a href="tel:${Immo.esc(phone)}" class="py-3 rounded-full bg-sand font-extrabold flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[20px]">call</span>Appeler</a>` : ''}
+                    </div>
+                    <form id="request" class="mt-6 space-y-3">
+                        <p class="font-extrabold">Demander une visite</p>
+                        <div class="grid grid-cols-2 gap-1 p-1 bg-sand rounded-full text-sm" role="group">
+                            <button type="button" data-type="visite" class="py-2 rounded-full font-extrabold bg-white shadow">Visite</button>
+                            <button type="button" data-type="information" class="py-2 rounded-full font-extrabold text-forest/60">Question</button>
+                        </div>
+                        <input name="nom" required maxlength="150" autocomplete="name" placeholder="Votre nom" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary">
+                        <input name="telephone" required type="tel" autocomplete="tel" placeholder="Téléphone (07 00 00 00 00)" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary">
+                        <input name="email" type="email" autocomplete="email" placeholder="Email (facultatif)" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary">
+                        <label data-date class="block"><span class="block text-xs font-extrabold uppercase tracking-wider text-forest/50 mb-1 ml-4">Date souhaitée</span>
+                            <input name="date_souhaitee" type="date" min="${new Date().toISOString().slice(0, 10)}" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+                        <textarea name="message" rows="3" maxlength="2000" placeholder="Votre message" class="w-full px-5 py-3 rounded-3xl bg-cream outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
+                        <button type="submit" class="w-full py-4 rounded-full bg-primary hover:bg-primary-dark text-white font-extrabold transition disabled:opacity-60">Envoyer ma demande</button>
+                        <p class="text-xs text-forest/50 text-center">Le propriétaire reçoit votre demande dans son espace et vous recontacte.</p>
+                    </form>
+                    <button type="button" data-fav="${p.id}" aria-pressed="${Immo.favorites.has(p.id)}" class="mt-4 w-full py-3 rounded-full border border-forest/10 font-extrabold flex items-center justify-center gap-2 ${Immo.favorites.has(p.id) ? 'text-red-500' : 'text-forest hover:text-primary'}">
+                        <span class="material-symbols-outlined ${Immo.favorites.has(p.id) ? 'icon-fill' : ''}">favorite</span>Favori
+                    </button>
+                </aside>
+            </div>
+
+            ${p.similaires.length ? `<section class="mt-20"><h2 class="text-3xl font-extrabold mb-8">Biens similaires</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">${p.similaires.map(Immo.card).join('')}</div></section>` : ''}`;
+
+        // Formulaire de demande
+        const form = document.getElementById('request');
+        let type = 'visite';
+        form.querySelectorAll('[data-type]').forEach(b => b.addEventListener('click', () => {
+            type = b.dataset.type;
+            form.querySelectorAll('[data-type]').forEach(x => { x.className = `py-2 rounded-full font-extrabold ${x === b ? 'bg-white shadow' : 'text-forest/60'}`; });
+            form.querySelector('[data-date]').classList.toggle('hidden', type !== 'visite');
+        }));
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const button = form.querySelector('[type="submit"]');
+            button.disabled = true;
+            try {
+                await Immo.api('requests', { method: 'POST', body: {
+                    type_demande: type, property_id: p.id,
+                    nom: form.nom.value, telephone: form.telephone.value, email: form.email.value || null,
+                    message: form.message.value || null, date_souhaitee: type === 'visite' ? (form.date_souhaitee.value || null) : null
+                } });
+                form.innerHTML = `<div class="text-center py-6"><span class="material-symbols-outlined icon-fill text-5xl text-accent">check_circle</span>
+                    <p class="mt-2 text-lg font-extrabold">Demande envoyée !</p><p class="text-forest/60">Le propriétaire vous recontactera rapidement.</p></div>`;
+            } catch (error) {
+                Immo.toast(error.message, 'error');
+                button.disabled = false;
+            }
+        });
+
+        // Galerie plein écran
+        main.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+            let i = Number(b.dataset.zoom);
+            const imgs = p.images.length ? p.images : [{ url: 'assets/img/abidjan-skyline.jpg' }];
+            const m = Immo.modal(p.titre, `<img data-big src="${Immo.esc(imgs[i].url)}" alt="" class="w-full rounded-3xl max-h-[70vh] object-contain bg-sand">
+                ${imgs.length > 1 ? `<div class="flex justify-between mt-4"><button type="button" data-prev class="px-5 py-3 rounded-full bg-sand font-extrabold">← Précédente</button><span data-pos class="self-center font-bold"></span><button type="button" data-next class="px-5 py-3 rounded-full bg-sand font-extrabold">Suivante →</button></div>` : ''}`, { size: 'max-w-4xl' });
+            const show = () => { m.el.querySelector('[data-big]').src = imgs[i].url; const pos = m.el.querySelector('[data-pos]'); if (pos) pos.textContent = `${i + 1} / ${imgs.length}`; };
+            m.el.querySelector('[data-prev]')?.addEventListener('click', () => { i = (i - 1 + imgs.length) % imgs.length; show(); });
+            m.el.querySelector('[data-next]')?.addEventListener('click', () => { i = (i + 1) % imgs.length; show(); });
+            show();
+        }));
+    }
+
+    (async () => {
+        if (!id) { location.href = 'annonces.html'; return; }
+        try {
+            render(await Immo.api(`properties/${id}`));
+        } catch (error) {
+            main.innerHTML = `<div class="text-center py-24"><span class="material-symbols-outlined text-6xl text-forest/30">home</span>
+                <h1 class="mt-4 text-3xl font-extrabold">Annonce introuvable</h1><p class="mt-2 text-forest/60">${Immo.esc(error.message)}</p>
+                <a href="annonces.html" class="inline-block mt-6 px-6 py-3 rounded-full bg-primary text-white font-extrabold">Voir toutes les annonces</a></div>`;
+        }
+    })();
+</script>
+</body>
+</html>

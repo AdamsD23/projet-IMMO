@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Annonces immobilières à Abidjan | Accueil Immo</title>
+    <meta name="description" content="Toutes les annonces : appartements, villas, studios, duplex, terrains et bureaux à louer ou à vendre à Abidjan.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-cream text-forest">
+<div id="site-header"></div>
+
+<main class="max-w-7xl mx-auto px-5 lg:px-8 pt-10">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h1 id="title" class="text-4xl sm:text-5xl font-extrabold">Toutes les <span class="italic text-primary">annonces</span></h1>
+            <p id="subtitle" class="mt-2 text-forest/60">Trouvez le bien idéal à Abidjan et sur le littoral.</p>
+        </div>
+        <label class="flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-forest/10 font-bold">
+            <span class="material-symbols-outlined">sort</span>
+            <select id="tri" class="bg-transparent outline-none" aria-label="Trier">
+                <option value="">Recommandés</option>
+                <option value="recent">Plus récents</option>
+                <option value="prix_asc">Prix croissant</option>
+                <option value="prix_desc">Prix décroissant</option>
+                <option value="populaire">Les plus vus</option>
+            </select>
+        </label>
+    </div>
+
+    <!-- Filtres -->
+    <form id="filters" class="mt-8 bg-white rounded-4xl shadow-xl shadow-forest/5 border border-forest/5 p-5 sm:p-6">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-[auto_1fr_1fr_1.4fr_auto] items-end">
+            <div>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-forest/50 mb-2">Je veux</p>
+                <div class="flex p-1 bg-sand rounded-full" role="group" aria-label="Louer ou acheter">
+                    <button type="button" data-statut="" class="px-4 py-2.5 rounded-full font-extrabold text-sm">Tout</button>
+                    <button type="button" data-statut="location" class="px-4 py-2.5 rounded-full font-extrabold text-sm">Louer</button>
+                    <button type="button" data-statut="vente" class="px-4 py-2.5 rounded-full font-extrabold text-sm">Acheter</button>
+                </div>
+            </div>
+            <label class="block">
+                <span class="block text-xs font-extrabold uppercase tracking-widest text-forest/50 mb-2">Commune</span>
+                <select name="commune" class="w-full px-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary"><option value="">Toutes</option></select>
+            </label>
+            <label class="block">
+                <span class="block text-xs font-extrabold uppercase tracking-widest text-forest/50 mb-2">Type de bien</span>
+                <select name="type" class="w-full px-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary"><option value="">Tous</option></select>
+            </label>
+            <div>
+                <span class="block text-xs font-extrabold uppercase tracking-widest text-forest/50 mb-2">Budget (FCFA)</span>
+                <div class="flex items-center gap-2">
+                    <input name="prix_min" type="number" min="0" step="10000" inputmode="numeric" placeholder="Min" class="w-full px-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary" aria-label="Budget minimum">
+                    <span class="text-forest/30">–</span>
+                    <input name="prix_max" type="number" min="0" step="10000" inputmode="numeric" placeholder="Max" class="w-full px-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary" aria-label="Budget maximum">
+                </div>
+            </div>
+            <label class="block">
+                <span class="block text-xs font-extrabold uppercase tracking-widest text-forest/50 mb-2">Chambres</span>
+                <select name="chambres_min" class="w-full px-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary">
+                    <option value="">Peu importe</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option>
+                </select>
+            </label>
+        </div>
+        <div class="mt-5 flex flex-wrap items-center gap-2">
+            <div id="equipements" class="flex flex-wrap gap-2"></div>
+            <div class="relative ml-auto w-full sm:w-72">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-forest/40">search</span>
+                <input name="q" type="search" placeholder="Quartier, mot-clé…" class="w-full pl-12 pr-4 py-3 rounded-full bg-cream font-semibold outline-none focus:ring-2 focus:ring-primary" aria-label="Recherche libre">
+            </div>
+            <button type="button" id="reset" class="px-4 py-3 rounded-full font-bold text-primary hover:bg-primary/10">Réinitialiser</button>
+        </div>
+    </form>
+
+    <p id="count" class="mt-8 font-bold text-forest/60"></p>
+    <div id="results" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <nav id="pagination" class="mt-12 flex justify-center gap-2" aria-label="Pages"></nav>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js"></script>
+<script>
+    const form = document.getElementById('filters');
+    const state = Object.fromEntries(Immo.params());
+    const favoritesMode = state.favoris === '1';
+    let selectedEquip = new Set((state.equipements || '').split(',').filter(Boolean));
+
+    form.commune.innerHTML += Object.entries(Immo.COMMUNES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    form.type.innerHTML += Object.entries(Immo.TYPES).map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    ['commune', 'type', 'prix_min', 'prix_max', 'chambres_min', 'q'].forEach(k => { if (state[k]) form[k].value = state[k]; });
+    document.getElementById('tri').value = state.tri || '';
+    document.body.dataset.page = favoritesMode ? 'favoris' : (state.statut || '');
+
+    function renderStatut() {
+        form.querySelectorAll('[data-statut]').forEach(b => {
+            const on = b.dataset.statut === (state.statut || '');
+            b.className = `px-4 py-2.5 rounded-full font-extrabold text-sm ${on ? 'bg-forest text-white' : 'text-forest/60'}`;
+        });
+        const titles = {
+            location: ['Biens à <span class="italic text-primary">louer</span>', 'Appartements, villas et studios disponibles à la location.'],
+            vente: ['Biens à <span class="italic text-primary">vendre</span>', 'Villas, appartements et terrains à acheter.'],
+            '': ['Toutes les <span class="italic text-primary">annonces</span>', 'Trouvez le bien idéal à Abidjan et sur le littoral.']
+        };
+        const [t, s] = favoritesMode ? ['Mes <span class="italic text-primary">favoris</span>', 'Les annonces que vous avez gardées (enregistrées sur cet appareil).'] : titles[state.statut || ''];
+        document.getElementById('title').innerHTML = t;
+        document.getElementById('subtitle').textContent = s;
+    }
+
+    function renderEquip() {
+        document.getElementById('equipements').innerHTML = Object.entries(Immo.EQUIPEMENTS).map(([k, [label, icon]]) => {
+            const on = selectedEquip.has(k);
+            return `<button type="button" data-equip="${k}" aria-pressed="${on}" class="flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-bold transition ${on ? 'bg-forest border-forest text-white' : 'border-forest/10 hover:border-primary'}"><span class="material-symbols-outlined text-[18px]">${icon}</span>${label}</button>`;
+        }).join('');
+    }
+
+    function syncUrl() {
+        const p = new URLSearchParams();
+        Object.entries(state).forEach(([k, v]) => { if (v && k !== 'page') p.set(k, v); });
+        if (state.page > 1) p.set('page', state.page);
+        history.replaceState(null, '', `annonces.html${p.toString() ? '?' + p : ''}`);
+    }
+
+    async function load() {
+        renderStatut();
+        syncUrl();
+        const results = document.getElementById('results');
+        results.innerHTML = Immo.skeletonCards(6);
+
+        if (favoritesMode) {
+            const ids = Immo.favorites.list();
+            const items = (await Promise.all(ids.map(id => Immo.api(`properties/${id}`).catch(() => null)))).filter(Boolean);
+            document.getElementById('count').textContent = `${items.length} annonce(s) en favori`;
+            results.innerHTML = items.map(Immo.card).join('') || emptyState('Aucun favori pour le moment. Touchez le ♥ d\'une annonce pour la garder ici.');
+            document.getElementById('filters').classList.add('hidden');
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+
+        const p = new URLSearchParams({ par_page: 12 });
+        Object.entries(state).forEach(([k, v]) => { if (v) p.set(k, v); });
+        try {
+            const data = await Immo.api(`properties?${p}`);
+            document.getElementById('count').textContent = `${data.total} bien${data.total > 1 ? 's' : ''} trouvé${data.total > 1 ? 's' : ''}`;
+            results.innerHTML = data.items.map(Immo.card).join('') || emptyState('Aucun bien ne correspond à vos critères. Essayez d\'élargir votre recherche.');
+            document.getElementById('pagination').innerHTML = data.pages > 1 ? Array.from({ length: data.pages }, (_, i) => i + 1).map(n =>
+                `<button type="button" data-page="${n}" class="w-11 h-11 rounded-full font-extrabold ${n === data.page ? 'bg-forest text-white' : 'bg-white hover:bg-sand'}">${n}</button>`).join('') : '';
+        } catch (error) {
+            results.innerHTML = emptyState(error.message);
+        }
+    }
+
+    function emptyState(text) {
+        return `<div class="col-span-full text-center py-20 bg-white rounded-4xl border border-dashed border-forest/20">
+            <span class="material-symbols-outlined text-5xl text-forest/30">search_off</span>
+            <p class="mt-3 font-bold text-forest/60 max-w-md mx-auto">${Immo.esc(text)}</p></div>`;
+    }
+
+    const reload = Immo.debounce(() => { state.page = 1; load(); }, 350);
+    form.addEventListener('input', e => {
+        if (!e.target.name) return;
+        state[e.target.name] = e.target.value;
+        reload();
+    });
+    form.addEventListener('submit', e => e.preventDefault());
+    form.addEventListener('click', e => {
+        const s = e.target.closest('[data-statut]');
+        if (s) { state.statut = s.dataset.statut; state.page = 1; load(); }
+        const eq = e.target.closest('[data-equip]');
+        if (eq) {
+            selectedEquip.has(eq.dataset.equip) ? selectedEquip.delete(eq.dataset.equip) : selectedEquip.add(eq.dataset.equip);
+            state.equipements = [...selectedEquip].join(',');
+            renderEquip(); state.page = 1; load();
+        }
+    });
+    document.getElementById('tri').addEventListener('change', e => { state.tri = e.target.value; state.page = 1; load(); });
+    document.getElementById('reset').addEventListener('click', () => {
+        Object.keys(state).forEach(k => { if (k !== 'statut') delete state[k]; });
+        selectedEquip = new Set();
+        form.reset(); renderEquip(); load();
+    });
+    document.getElementById('pagination').addEventListener('click', e => {
+        const b = e.target.closest('[data-page]');
+        if (b) { state.page = Number(b.dataset.page); load(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
+
+    renderEquip();
+    load();
+</script>
+</body>
+</html>

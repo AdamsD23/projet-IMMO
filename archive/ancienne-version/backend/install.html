@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Installation Accueil Immo CI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .step { margin: 20px 0; padding: 20px; border-left: 4px solid #064E3B; background: #f9f9f9; }
+        .success { color: #2e7d32; font-weight: bold; }
+        .error { color: #d32f2f; font-weight: bold; }
+        .btn { background: #064E3B; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; margin: 10px 5px; }
+        .btn:hover { background: #064E3B; }
+        .code { background: #f4f4f4; padding: 15px; border-radius: 5px; font-family: monospace; margin: 10px 0; }
+        .status { padding: 10px; border-radius: 5px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Installation Accueil Immo CI</h1>
+        <p>Suivez ces étapes pour lancer votre site immobilier complet</p>
+        
+        <div class="step">
+            <h3>📋 Étape 1: Vérifier les prérequis</h3>
+            <p>Assurez-vous d'avoir:</p>
+            <ul>
+                <li>XAMPP/WAMP/MAMP installé</li>
+                <li>PHP 8.0+ activé</li>
+                <li>MySQL/MariaDB en cours d'exécution</li>
+            </ul>
+            <button class="btn" onclick="checkPrerequisites()">Vérifier les prérequis</button>
+            <div id="prereq-status"></div>
+        </div>
+        
+        <div class="step">
+            <h3>🗄️ Étape 2: Configurer la base de données</h3>
+            <p>Modifiez le fichier <code>backend/config/config.php</code>:</p>
+            <div class="code">
+const DB_HOST = 'localhost';<br>
+const DB_NAME = 'accueil_immo';<br>
+const DB_USER = 'root';<br>
+const DB_PASS = ''; // Votre mot de passe MySQL
+            </div>
+            <button class="btn" onclick="testDatabase()">Tester la connexion</button>
+            <div id="db-status"></div>
+        </div>
+        
+        <div class="step">
+            <h3>🔧 Étape 3: Créer les tables</h3>
+            <p>Cliquez pour créer automatiquement toutes les tables nécessaires:</p>
+            <button class="btn" onclick="createDatabase()">Créer la base de données</button>
+            <div id="create-status"></div>
+        </div>
+        
+        <div class="step">
+            <h3>📊 Étape 4: Insérer les données de test</h3>
+            <p>Ajoutez des données exemples pour tester le site:</p>
+            <button class="btn" onclick="insertTestData()">Insérer données de test</button>
+            <div id="data-status"></div>
+        </div>
+        
+        <div class="step">
+            <h3>🌐 Étape 5: Lancer le site</h3>
+            <p>Le site est maintenant prêt! Accédez aux pages:</p>
+            <div class="code">
+                <a href="../acceuil2.html" target="_blank">🏠 Page d'accueil</a><br>
+                <a href="../pagelocation.html" target="_blank">🏢 Locations</a><br>
+                <a href="../vente.html" target="_blank">💰 Ventes</a><br>
+                <a href="../conciergerie.html" target="_blank">🛎️ Conciergerie</a><br>
+                <a href="../deposeannonce.html" target="_blank">📝 Déposer annonce</a><br>
+                <a href="../seconnecter.html" target="_blank">🔐 Connexion</a><br>
+                <a href="../gestion.html" target="_blank">📊 Tableau de bord</a>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>🔑 Comptes de test</h3>
+            <div class="code">
+                <strong>Admin:</strong> admin@accueilimmo.ci / password123<br>
+                <strong>Propriétaire:</strong> mamadou@example.com / password123<br>
+                <strong>Locataire:</strong> amina@example.com / password123<br>
+                <strong>Agent:</strong> yves@example.com / password123
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>📱 Tester l'API</h3>
+            <p>Testez quelques endpoints de l'API:</p>
+            <button class="btn" onclick="testAPI()">Tester l'API</button>
+            <div id="api-status"></div>
+        </div>
+    </div>
+
+    <script>
+        function checkPrerequisites() {
+            const status = document.getElementById('prereq-status');
+            status.innerHTML = '<div class="status">✅ PHP 8.0+ requis<br>✅ MySQL requis<br>✅ Serveur web requis</div>';
+        }
+        
+        function testDatabase() {
+            const status = document.getElementById('db-status');
+            status.innerHTML = '<div class="status">⚠️ Configurez backend/config/config.php avec vos identifiants MySQL</div>';
+        }
+        
+        function createDatabase() {
+            const status = document.getElementById('create-status');
+            status.innerHTML = `
+                <div class="status">
+                    <p>📋 Exécutez cette commande dans votre navigateur:</p>
+                    <div class="code">
+                        http://localhost/prodesticprojet/backend/setup/database
+                    </div>
+                    <p>Ou importez le fichier backend/database.sql via phpMyAdmin</p>
+                </div>
+            `;
+        }
+        
+        function insertTestData() {
+            const status = document.getElementById('data-status');
+            status.innerHTML = `
+                <div class="status">
+                    <p>📋 Exécutez cette commande:</p>
+                    <div class="code">
+                        http://localhost/prodesticprojet/backend/setup/test-data
+                    </div>
+                </div>
+            `;
+        }
+        
+        function testAPI() {
+            const status = document.getElementById('api-status');
+            status.innerHTML = `
+                <div class="status">
+                    <p>📋 Testez ces endpoints:</p>
+                    <div class="code">
+                        GET: http://localhost/prodesticprojet/backend/properties<br>
+                        GET: http://localhost/prodesticprojet/backend/properties/featured<br>
+                        POST: http://localhost/prodesticprojet/backend/auth/login
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

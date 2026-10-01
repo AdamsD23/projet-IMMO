@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon espace | Accueil Immo</title>
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-cream text-forest" data-no-assistant>
+<div id="site-header"></div>
+
+<main class="max-w-7xl mx-auto px-5 lg:px-8 pt-10">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <p id="role" class="font-extrabold uppercase tracking-widest text-primary text-sm"></p>
+            <h1 id="hello" class="mt-1 text-4xl font-extrabold">Mon espace</h1>
+        </div>
+        <a id="publish" href="publier.html" class="px-6 py-3.5 rounded-full bg-primary hover:bg-primary-dark text-white font-extrabold shadow-lg shadow-primary/30 flex items-center gap-2"><span class="material-symbols-outlined">add</span>Nouvelle annonce</a>
+    </div>
+
+    <section id="stats" class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4"></section>
+
+    <div class="mt-10 flex gap-2 overflow-x-auto no-scrollbar border-b border-forest/10" role="tablist">
+        <button type="button" data-tab="annonces" class="px-5 py-3 font-extrabold border-b-2 -mb-px whitespace-nowrap">Mes annonces</button>
+        <button type="button" data-tab="demandes" class="px-5 py-3 font-extrabold border-b-2 -mb-px whitespace-nowrap">Demandes reçues <span data-new-count class="hidden ml-1 px-2 py-0.5 rounded-full bg-primary text-white text-xs"></span></button>
+        <button type="button" data-tab="profil" class="px-5 py-3 font-extrabold border-b-2 -mb-px whitespace-nowrap">Mon profil</button>
+    </div>
+
+    <section data-panel="annonces" class="mt-8"><div id="properties" class="grid gap-4"></div></section>
+    <section data-panel="demandes" class="mt-8 hidden"><div id="requests" class="grid gap-4"></div></section>
+    <section data-panel="profil" class="mt-8 hidden grid lg:grid-cols-2 gap-6 items-start">
+        <form id="profile" class="bg-white rounded-4xl border border-forest/5 p-6 sm:p-8 grid sm:grid-cols-2 gap-4">
+            <h2 class="sm:col-span-2 text-xl font-extrabold">Mes informations</h2>
+            <label class="block"><span class="block text-sm font-extrabold mb-1">Prénom</span><input name="prenom" required class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+            <label class="block"><span class="block text-sm font-extrabold mb-1">Nom</span><input name="nom" required class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+            <label class="block sm:col-span-2"><span class="block text-sm font-extrabold mb-1">Téléphone (affiché sur vos annonces)</span><input name="telephone" type="tel" required class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary"></label>
+            <p class="sm:col-span-2 text-sm text-forest/60">Email : <span data-email class="font-bold"></span></p>
+            <button type="submit" class="sm:col-span-2 py-3.5 rounded-full bg-forest text-white font-extrabold">Enregistrer</button>
+        </form>
+        <div class="grid gap-6">
+            <form id="password" class="bg-white rounded-4xl border border-forest/5 p-6 sm:p-8 grid gap-4">
+                <h2 class="text-xl font-extrabold">Mot de passe</h2>
+                <input name="ancien" type="password" required autocomplete="current-password" placeholder="Mot de passe actuel" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary">
+                <input name="nouveau" type="password" required minlength="8" autocomplete="new-password" placeholder="Nouveau mot de passe (8 caractères min.)" class="w-full px-5 py-3 rounded-full bg-cream outline-none focus:ring-2 focus:ring-primary">
+                <button type="submit" class="py-3.5 rounded-full bg-sand font-extrabold">Changer le mot de passe</button>
+            </form>
+            <button type="button" id="logout" class="py-4 rounded-full border-2 border-red-200 text-red-600 font-extrabold hover:bg-red-50">Se déconnecter</button>
+        </div>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/js/app.js"></script>
+<script>
+    let user;
+    let properties = [];
+    let requests = [];
+    const REQUEST_TYPES = { visite: ['Visite', 'event'], information: ['Question', 'help'], conciergerie: ['Conciergerie', 'room_service'], contact: ['Contact', 'mail'] };
+    const STATUTS = { nouveau: ['Nouvelle', 'bg-primary text-white'], en_cours: ['En cours', 'bg-amber-100 text-amber-800'], traite: ['Traitée', 'bg-emerald-100 text-emerald-800'] };
+
+    function tab(name) {
+        document.querySelectorAll('[data-tab]').forEach(b => { b.className = `px-5 py-3 font-extrabold border-b-2 -mb-px whitespace-nowrap ${b.dataset.tab === name ? 'border-primary text-forest' : 'border-transparent text-forest/50 hover:text-forest'}`; });
+        document.querySelectorAll('[data-panel]').forEach(p => p.classList.toggle('hidden', p.dataset.panel !== name));
+        history.replaceState(null, '', `espace.html#${name}`);
+    }
+    document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => tab(b.dataset.tab)));
+
+    async function loadStats() {
+        const s = await Immo.api('my/stats');
+        const card = (icon, label, value, sub) => `<div class="bg-white rounded-4xl border border-forest/5 p-5">
+            <span class="material-symbols-outlined text-primary">${icon}</span>
+            <p class="mt-3 text-3xl font-extrabold">${Immo.number(value)}</p>
+            <p class="text-sm font-bold text-forest/60">${label}</p>${sub ? `<p class="text-xs text-forest/40 mt-1">${sub}</p>` : ''}</div>`;
+        document.getElementById('stats').innerHTML = [
+            card('home_work', 'Annonces', s.annonces, `${s.actives} visible(s) · ${s.locations} location(s) · ${s.ventes} vente(s)`),
+            card('visibility', 'Vues au total', s.vues),
+            card('mark_email_unread', 'Nouvelles demandes', s.nouvelles),
+            card(user.type_utilisateur === 'admin' ? 'group' : 'forum', user.type_utilisateur === 'admin' ? 'Utilisateurs' : 'Demandes au total', user.type_utilisateur === 'admin' ? s.utilisateurs : s.demandes)
+        ].join('');
+        const badge = document.querySelector('[data-new-count]');
+        badge.textContent = s.nouvelles;
+        badge.classList.toggle('hidden', !s.nouvelles);
+    }
+
+    function renderProperties() {
+        const box = document.getElementById('properties');
+        if (!properties.length) {
+            box.innerHTML = `<div class="text-center py-16 bg-white rounded-4xl border border-dashed border-forest/20">
+                <span class="material-symbols-outlined text-5xl text-forest/30">add_home</span>
+                <p class="mt-3 font-bold text-forest/60">Vous n'avez pas encore d'annonce.</p>
+                <a href="publier.html" class="inline-block mt-5 px-6 py-3 rounded-full bg-primary text-white font-extrabold">Publier ma première annonce</a></div>`;
+            return;
+        }
+        box.innerHTML = properties.map(p => `
+            <article class="bg-white rounded-4xl border border-forest/5 p-4 flex flex-col sm:flex-row gap-4 ${p.active ? '' : 'opacity-70'}">
+                <a href="annonce.html?id=${p.id}" class="sm:w-48 aspect-[4/3] rounded-3xl overflow-hidden bg-sand shrink-0"><img src="${Immo.esc(p.images[0]?.url || 'assets/img/abidjan-skyline.jpg')}" alt="" class="w-full h-full object-cover"></a>
+                <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase ${p.statut_bien === 'vente' ? 'bg-primary text-white' : 'bg-forest text-white'}">${p.statut_bien === 'vente' ? 'À vendre' : 'À louer'}</span>
+                        ${p.active ? '<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase bg-emerald-100 text-emerald-800">En ligne</span>' : '<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold uppercase bg-sand">Masquée</span>'}
+                    </div>
+                    <h3 class="mt-2 text-lg font-extrabold truncate"><a href="annonce.html?id=${p.id}" class="hover:text-primary">${Immo.esc(p.titre)}</a></h3>
+                    <p class="text-sm text-forest/60">${Immo.esc(Immo.COMMUNES[p.commune])}${p.quartier ? ' · ' + Immo.esc(p.quartier) : ''} · publiée ${Immo.timeAgo(p.created_at)}</p>
+                    <p class="mt-2 text-xl font-extrabold">${Immo.price(p)}</p>
+                    <p class="mt-2 flex gap-4 text-sm font-bold text-forest/60">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">visibility</span>${p.vues} vue(s)</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>${p.nb_demandes} demande(s)</span>
+                    </p>
+                </div>
+                <div class="flex sm:flex-col gap-2 shrink-0">
+                    <a href="publier.html?id=${p.id}" class="flex-1 px-4 py-2.5 rounded-full bg-sand font-extrabold text-sm flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">edit</span>Modifier</a>
+                    <button type="button" data-toggle="${p.id}" class="flex-1 px-4 py-2.5 rounded-full bg-sand font-extrabold text-sm flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">${p.active ? 'visibility_off' : 'visibility'}</span>${p.active ? 'Masquer' : 'Remettre en ligne'}</button>
+                    <button type="button" data-delete="${p.id}" class="flex-1 px-4 py-2.5 rounded-full text-red-600 hover:bg-red-50 font-extrabold text-sm flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[18px]">delete</span>Supprimer</button>
+                </div>
+            </article>`).join('');
+    }
+
+    function renderRequests() {
+        const box = document.getElementById('requests');
+        if (!requests.length) {
+            box.innerHTML = `<div class="text-center py-16 bg-white rounded-4xl border border-dashed border-forest/20"><span class="material-symbols-outlined text-5xl text-forest/30">inbox</span>
+                <p class="mt-3 font-bold text-forest/60">Aucune demande pour le moment. Elles apparaîtront ici dès qu'un visiteur vous contactera.</p></div>`;
+            return;
+        }
+        box.innerHTML = requests.map(r => {
+            const [typeLabel, icon] = REQUEST_TYPES[r.type_demande];
+            const phone = (r.telephone || '').replace(/[^\d+]/g, '');
+            const wa = `https://wa.me/${phone.replace(/^\+/, '').replace(/^0/, '225')}?text=${encodeURIComponent(`Bonjour ${r.nom}, suite à votre demande sur Accueil Immo${r.property_titre ? ` concernant « ${r.property_titre} »` : ''}…`)}`;
+            return `<article class="bg-white rounded-4xl border border-forest/5 p-5 sm:p-6 ${r.statut === 'traite' ? 'opacity-70' : ''}">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="w-11 h-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center"><span class="material-symbols-outlined">${icon}</span></span>
+                        <div><p class="font-extrabold">${Immo.esc(r.nom)} <span class="text-forest/40 font-bold">· ${typeLabel}</span></p>
+                        <p class="text-sm text-forest/60">${r.property_titre ? `Pour <a href="annonce.html?id=${r.property_id}" class="font-bold hover:text-primary">${Immo.esc(r.property_titre)}</a>` : Immo.esc(r.service_nom || 'Message général')} · ${Immo.timeAgo(r.created_at)}</p></div>
+                    </div>
+                    <select data-status="${r.id}" class="px-4 py-2 rounded-full font-extrabold text-sm outline-none ${STATUTS[r.statut][1]}" aria-label="Statut de la demande">
+                        ${Object.entries(STATUTS).map(([v, [l]]) => `<option value="${v}" ${v === r.statut ? 'selected' : ''}>${l}</option>`).join('')}
+                    </select>
+                </div>
+                ${r.message ? `<p class="mt-4 px-5 py-4 rounded-3xl bg-cream text-forest/80">${Immo.esc(r.message)}</p>` : ''}
+                <div class="mt-4 flex flex-wrap items-center gap-2 text-sm">
+                    ${r.date_souhaitee ? `<span class="px-3 py-2 rounded-full bg-sand font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">calendar_month</span>Souhaitée le ${Immo.date(r.date_souhaitee)}</span>` : ''}
+                    <a href="${wa}" target="_blank" rel="noopener" class="px-4 py-2 rounded-full bg-[#25D366] text-white font-extrabold flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">chat</span>WhatsApp</a>
+                    <a href="tel:${Immo.esc(phone)}" class="px-4 py-2 rounded-full bg-sand font-extrabold flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">call</span>${Immo.esc(r.telephone)}</a>
+                    ${r.email ? `<a href="mailto:${Immo.esc(r.email)}" class="px-4 py-2 rounded-full bg-sand font-extrabold flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">mail</span>Email</a>` : ''}
+                </div>
+            </article>`;
+        }).join('');
+    }
+
+    async function loadProperties() { properties = await Immo.api('my/properties'); renderProperties(); }
+    async function loadRequests() { requests = await Immo.api('my/requests'); renderRequests(); }
+
+    document.getElementById('properties').addEventListener('click', async e => {
+        const toggle = e.target.closest('[data-toggle]');
+        const del = e.target.closest('[data-delete]');
+        try {
+            if (toggle) {
+                const p = properties.find(x => x.id === Number(toggle.dataset.toggle));
+                await Immo.api(`properties/${p.id}/active`, { method: 'PATCH', body: { active: !p.active } });
+                Immo.toast(p.active ? 'Annonce masquée' : 'Annonce remise en ligne');
+                await Promise.all([loadProperties(), loadStats()]);
+            }
+            if (del) {
+                const p = properties.find(x => x.id === Number(del.dataset.delete));
+                if (!await Immo.confirm(`Supprimer définitivement « ${p.titre} » ?`, 'Supprimer')) return;
+                await Immo.api(`properties/${p.id}`, { method: 'DELETE' });
+                Immo.toast('Annonce supprimée');
+                await Promise.all([loadProperties(), loadStats()]);
+            }
+        } catch (error) { Immo.toast(error.message, 'error'); }
+    });
+
+    document.getElementById('requests').addEventListener('change', async e => {
+        const select = e.target.closest('[data-status]');
+        if (!select) return;
+        try {
+            await Immo.api(`requests/${select.dataset.status}`, { method: 'PATCH', body: { statut: select.value } });
+            Immo.toast('Statut mis à jour');
+            await Promise.all([loadRequests(), loadStats()]);
+        } catch (error) { Immo.toast(error.message, 'error'); }
+    });
+
+    document.getElementById('profile').addEventListener('submit', async e => {
+        e.preventDefault();
+        try {
+            const f = e.target;
+            user = await Immo.api('auth/me', { method: 'PUT', body: { prenom: f.prenom.value, nom: f.nom.value, telephone: f.telephone.value } });
+            Immo.saveSession(Immo.getToken(), user);
+            Immo.toast('Profil enregistré');
+        } catch (error) { Immo.toast(error.message, 'error'); }
+    });
+    document.getElementById('password').addEventListener('submit', async e => {
+        e.preventDefault();
+        try {
+            await Immo.api('auth/password', { method: 'PUT', body: { ancien: e.target.ancien.value, nouveau: e.target.nouveau.value } });
+            e.target.reset();
+            Immo.toast('Mot de passe modifié');
+        } catch (error) { Immo.toast(error.message, 'error'); }
+    });
+    document.getElementById('logout').addEventListener('click', Immo.logout);
+
+    (async () => {
+        user = await Immo.requireAuth();
+        document.getElementById('hello').textContent = `Bonjour, ${user.prenom}`;
+        document.getElementById('role').textContent = Immo.PROFILS[user.type_utilisateur];
+        const f = document.getElementById('profile');
+        f.prenom.value = user.prenom; f.nom.value = user.nom; f.telephone.value = user.telephone || '';
+        f.querySelector('[data-email]').textContent = user.email;
+        if (user.type_utilisateur === 'admin') document.querySelector('[data-tab="annonces"]').textContent = 'Toutes les annonces';
+        if (user.type_utilisateur === 'locataire') {
+            document.getElementById('publish').classList.add('hidden');
+            document.querySelector('[data-tab="annonces"]').classList.add('hidden');
+            document.querySelector('[data-tab="demandes"]').classList.add('hidden');
+            document.getElementById('stats').innerHTML = `<div class="col-span-full bg-white rounded-4xl border border-forest/5 p-6">
+                <p class="font-extrabold">Bienvenue ! Parcourez les annonces et gardez vos préférées en favoris.</p>
+                <div class="flex flex-wrap gap-2 mt-4"><a href="annonces.html?statut=location" class="px-5 py-3 rounded-full bg-forest text-white font-extrabold">Louer</a><a href="annonces.html?statut=vente" class="px-5 py-3 rounded-full bg-sand font-extrabold">Acheter</a><a href="annonces.html?favoris=1" class="px-5 py-3 rounded-full bg-sand font-extrabold">Mes favoris</a></div></div>`;
+            tab('profil');
+            return;
+        }
+        const start = location.hash.slice(1);
+        tab(['annonces', 'demandes', 'profil'].includes(start) ? start : 'annonces');
+        document.getElementById('properties').innerHTML = '<div class="skeleton h-40 rounded-4xl"></div><div class="skeleton h-40 rounded-4xl"></div>';
+        try {
+            await Promise.all([loadStats(), loadProperties(), loadRequests()]);
+        } catch (error) { Immo.toast(error.message, 'error'); }
+    })();
+</script>
+</body>
+</html>
